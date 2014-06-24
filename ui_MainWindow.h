@@ -63,7 +63,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(274, 307);
+        MainWindow->resize(531, 319);
         actionNew = new QAction(MainWindow);
         actionNew->setObjectName(QStringLiteral("actionNew"));
         actionOpen = new QAction(MainWindow);
@@ -86,6 +86,8 @@ public:
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
+        tabWidget->setCursor(QCursor(Qt::CrossCursor));
+        tabWidget->setMouseTracking(false);
         tabWidget->setStyleSheet(QStringLiteral("QWidget { background-color: white; }"));
         tabWidget->setDocumentMode(false);
         tabWidget->setTabsClosable(true);
@@ -101,7 +103,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 274, 25));
+        menuBar->setGeometry(QRect(0, 0, 531, 25));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHelp = new QMenu(menuBar);
@@ -152,7 +154,7 @@ public:
 
         verticalLayout->addWidget(bDrawWidth);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        verticalSpacer = new QSpacerItem(20, 52, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
 

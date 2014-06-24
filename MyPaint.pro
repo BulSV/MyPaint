@@ -37,8 +37,10 @@ else {
 }
 
 SOURCES += main.cpp\
-        MainWindow.cpp
+        MainWindow.cpp \
+    Canvas.cpp
 
-HEADERS  += MainWindow.h
+HEADERS  += MainWindow.h \
+    Canvas.h
 
 FORMS    += MainWindow.ui

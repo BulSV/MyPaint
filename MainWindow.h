@@ -6,6 +6,10 @@
 #include <QLabel>
 #include <QFrame>
 #include <QPainter>
+#include <QScrollArea>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsItem>
 #include "Canvas.h"
 
 namespace Ui {
@@ -27,8 +31,11 @@ private:
     QLabel *lEndX;
     QLabel *lEndY;
     QFrame *frmXYLineSeparator;
+//    Canvas *canvas;
 private slots:
     void setStartXY_EndXY(int startX, int startY, int endX, int endY);
+    void newImage();
+    void on_bDrawLine_clicked();
 };
 
 #endif // MAINWINDOW_H

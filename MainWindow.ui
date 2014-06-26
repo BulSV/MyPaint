@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>531</width>
-    <height>319</height>
+    <width>529</width>
+    <height>361</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MyPaint</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
      <widget class="QTabWidget" name="tabWidget">
       <property name="cursor">
        <cursorShape>CrossCursor</cursorShape>
@@ -30,7 +30,7 @@
        <number>0</number>
       </property>
       <property name="documentMode">
-       <bool>false</bool>
+       <bool>true</bool>
       </property>
       <property name="tabsClosable">
        <bool>true</bool>
@@ -44,6 +44,7 @@
        <attribute name="title">
         <string>Tab 2</string>
        </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout"/>
       </widget>
      </widget>
     </item>
@@ -54,7 +55,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>531</width>
+     <width>529</width>
      <height>25</height>
     </rect>
    </property>
@@ -133,22 +134,22 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="bDrawColor">
+      <widget class="QPushButton" name="bPenColor">
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set Pen Color&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
-        <string>Color</string>
+        <string>Pen Color</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="bDrawWidth">
+      <widget class="QPushButton" name="bPenWidth">
        <property name="toolTip">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set Pen Width&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
        <property name="text">
-        <string>Width</string>
+        <string>Pen Width</string>
        </property>
       </widget>
      </item>
@@ -160,7 +161,7 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>52</height>
+         <height>94</height>
         </size>
        </property>
       </spacer>
@@ -283,5 +284,24 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionNew</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>newImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>264</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
+ <slots>
+  <slot>newImage()</slot>
+ </slots>
 </ui>

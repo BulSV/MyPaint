@@ -15,6 +15,8 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDockWidget>
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -39,10 +41,11 @@ public:
     QAction *actionShowDrawingTools;
     QAction *actionHideDrawingTools;
     QWidget *centralWidget;
-    QVBoxLayout *verticalLayout_2;
+    QGridLayout *gridLayout;
     QTabWidget *tabWidget;
     QWidget *tab;
     QWidget *tab_2;
+    QHBoxLayout *horizontalLayout;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuHelp;
@@ -55,15 +58,15 @@ public:
     QPushButton *bDrawRectangle;
     QPushButton *bDrawEllipse;
     QFrame *line;
-    QPushButton *bDrawColor;
-    QPushButton *bDrawWidth;
+    QPushButton *bPenColor;
+    QPushButton *bPenWidth;
     QSpacerItem *verticalSpacer;
 
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(531, 319);
+        MainWindow->resize(529, 361);
         actionNew = new QAction(MainWindow);
         actionNew->setObjectName(QStringLiteral("actionNew"));
         actionOpen = new QAction(MainWindow);
@@ -80,30 +83,34 @@ public:
         actionHideDrawingTools->setObjectName(QStringLiteral("actionHideDrawingTools"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        verticalLayout_2 = new QVBoxLayout(centralWidget);
-        verticalLayout_2->setSpacing(6);
-        verticalLayout_2->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
+        gridLayout = new QGridLayout(centralWidget);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setCursor(QCursor(Qt::CrossCursor));
         tabWidget->setMouseTracking(false);
         tabWidget->setStyleSheet(QStringLiteral("QWidget { background-color: white; }"));
-        tabWidget->setDocumentMode(false);
+        tabWidget->setDocumentMode(true);
         tabWidget->setTabsClosable(true);
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
+        horizontalLayout = new QHBoxLayout(tab_2);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         tabWidget->addTab(tab_2, QString());
 
-        verticalLayout_2->addWidget(tabWidget);
+        gridLayout->addWidget(tabWidget, 0, 0, 1, 1);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 531, 25));
+        menuBar->setGeometry(QRect(0, 0, 529, 25));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHelp = new QMenu(menuBar);
@@ -144,17 +151,17 @@ public:
 
         verticalLayout->addWidget(line);
 
-        bDrawColor = new QPushButton(dockWidgetContents_2);
-        bDrawColor->setObjectName(QStringLiteral("bDrawColor"));
+        bPenColor = new QPushButton(dockWidgetContents_2);
+        bPenColor->setObjectName(QStringLiteral("bPenColor"));
 
-        verticalLayout->addWidget(bDrawColor);
+        verticalLayout->addWidget(bPenColor);
 
-        bDrawWidth = new QPushButton(dockWidgetContents_2);
-        bDrawWidth->setObjectName(QStringLiteral("bDrawWidth"));
+        bPenWidth = new QPushButton(dockWidgetContents_2);
+        bPenWidth->setObjectName(QStringLiteral("bPenWidth"));
 
-        verticalLayout->addWidget(bDrawWidth);
+        verticalLayout->addWidget(bPenWidth);
 
-        verticalSpacer = new QSpacerItem(20, 52, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        verticalSpacer = new QSpacerItem(20, 94, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout->addItem(verticalSpacer);
 
@@ -178,6 +185,7 @@ public:
         QObject::connect(actionHideDrawingTools, SIGNAL(triggered()), drawingTools, SLOT(hide()));
         QObject::connect(drawingTools, SIGNAL(visibilityChanged(bool)), actionShowDrawingTools, SLOT(setDisabled(bool)));
         QObject::connect(drawingTools, SIGNAL(visibilityChanged(bool)), actionHideDrawingTools, SLOT(setEnabled(bool)));
+        QObject::connect(actionNew, SIGNAL(triggered()), MainWindow, SLOT(newImage()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -220,13 +228,13 @@ public:
 #endif // QT_NO_TOOLTIP
         bDrawEllipse->setText(QApplication::translate("MainWindow", "Ellipse", 0));
 #ifndef QT_NO_TOOLTIP
-        bDrawColor->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Set Pen Color</p></body></html>", 0));
+        bPenColor->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Set Pen Color</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
-        bDrawColor->setText(QApplication::translate("MainWindow", "Color", 0));
+        bPenColor->setText(QApplication::translate("MainWindow", "Pen Color", 0));
 #ifndef QT_NO_TOOLTIP
-        bDrawWidth->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Set Pen Width</p></body></html>", 0));
+        bPenWidth->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Set Pen Width</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
-        bDrawWidth->setText(QApplication::translate("MainWindow", "Width", 0));
+        bPenWidth->setText(QApplication::translate("MainWindow", "Pen Width", 0));
     } // retranslateUi
 
 };

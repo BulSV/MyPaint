@@ -90,7 +90,7 @@ void MainWindow::newImage()
     }
     else
     {
-        ui->tabWidget->addTab(canvas, tr("No Name"));
+        ui->tabWidget->addTab(canvas, tr("untitled"));
     }
     if(imageSizePx.x() && imageSizePx.y())
     {

@@ -4,16 +4,16 @@
 
 Canvas::Canvas(QGraphicsView *parent) :
     QGraphicsView(parent)
-//  , itsPainter(new QList<QPainter*>)
+  , itsPainter(new QList<QPainter*>)
   , itsStartX(0)
   , itsStartY(0)
   , itsEndX(0)
   , itsEndY(0)
-//  , itsCurrentPainter(0)
+  , itsCurrentPainter(0)
   , itsScene(new QGraphicsScene())
 {        
     this->setScene(itsScene);
-    this->setSceneRect(0, 0, 250, 250);
+//    this->setSceneRect(0, 0, 250, 250);
 }
 
 //Canvas::Canvas(QGraphicsScene *scene, QGraphicsView *parent) :
@@ -57,7 +57,16 @@ QGraphicsLineItem *Canvas::addLineCanvas()
 {
 //    return QGraphicsScene::addLine(startX(), startY(), endX(), endY(), QPen(QBrush(QColor(Qt::red)), 10.0));
 //    return this->addEllipse(0.0, 0.0, 100.0, 50.0);
-//    return addLine(0, 0, 250, 250, QPen(QBrush(QColor(Qt::red)), 10));
+    //    return addLine(0, 0, 250, 250, QPen(QBrush(QColor(Qt::red)), 10));
+}
+
+void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
+{
+    itsScene->setSceneRect(x, y, w, h);
+    itsScene->addLine(0, 0, w, 0);
+    itsScene->addLine(w, 0, w, h);
+    itsScene->addLine(w, h, 0, h);
+    itsScene->addLine(0, h, 0, 0);
 }
 
 //void Canvas::setPainter(QPainter *painter)
@@ -66,14 +75,16 @@ QGraphicsLineItem *Canvas::addLineCanvas()
 //}
 
 void Canvas::mousePressEvent(QMouseEvent *pe)
-{
-    qDebug() << "void MainWindow::mousePressEvent(QMouseEvent *pe)";
+{    
     if(pe->buttons() & Qt::LeftButton)
     {
-        itsStartX = pe->x();
-        itsStartY = pe->y();
+        qDebug() << "void MainWindow::mousePressEvent(QMouseEvent *pe)";
+        QPointF point = mapToScene(pe->pos());
+        itsStartX = point.x();
+        itsStartY = point.y();
 
-        itsScene->addLine(startX(), startY(), endX(), endY());
+//        itsScene->addLine(startX(), startY(), endX(), endY());
+//        itsScene->clear();
 
 //        itsPainter->append(new QPainter());
 //        ++itsCurrentPainter;
@@ -84,36 +95,52 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
 {
     if(pe->buttons() & Qt::LeftButton)
     {
-        itsEndX = pe->x();
-        itsEndY = pe->y();
+        QPointF point = mapToScene(pe->pos());
+        itsEndX = point.x();
+        itsEndY = point.y();
+
+//        itsScene->clear();
+//        itsScene->addLine(startX(), startY(), endX(), endY());
+        if(itsScene->items().size() > 4)
+        {
+            QGraphicsItem *gi = itsScene->items().first();
+            itsScene->items().removeFirst();
+            delete gi;
+            gi = 0;
+        }
 
         itsScene->addLine(startX(), startY(), endX(), endY());
+        qDebug() << "Number of Items" << itsScene->items().size();
 
-        update();
+//        updateSceneRect(QRect(0,0,250,250));
 
         emit painting(startX(), startY(), endX(), endY());
     }
 }
 
-void Canvas::mouseReleaseEvent(QMouseEvent *pe)
-{
-    qDebug() << "void MainWindow::mouseReleaseEvent(QMouseEvent *pe)";
-    if(pe->buttons() & Qt::LeftButton)
-    {
-        itsEndX = pe->x();
-        itsEndY = pe->y();
-
-        itsScene->addLine(startX(), startY(), endX(), endY());
-    }
-}
-
-//void Canvas::paintEvent(QPaintEvent *)
+//void Canvas::mouseReleaseEvent(QMouseEvent *pe)
 //{
-//    if(itsCurrentPainter)
+////    if(pe->buttons() & Qt::LeftButton)
 //    {
-//        itsPainter->at(itsCurrentPainter - 1)->begin(this);
-//        itsPainter->at(itsCurrentPainter - 1)->setPen(QPen(Qt::black, 3));
-//        itsPainter->at(itsCurrentPainter - 1)->drawLine(QPointF(itsStartX, itsStartY), QPointF(itsEndX, itsEndY));
-//        itsPainter->at(itsCurrentPainter - 1)->end();
+//        qDebug() << "void MainWindow::mouseReleaseEvent(QMouseEvent *pe)";
+//        itsEndX = pe->x();
+//        itsEndY = pe->y();
+////        itsScene->clear();
+
+////        itsScene->addLine(startX(), startY(), endX(), endY());
+////        update();
 //    }
+//}
+
+//void Canvas::paintEvent(QPaintEvent *pe)
+//{
+////    if(itsCurrentPainter)
+////    {
+////        itsPainter->at(itsCurrentPainter - 1)->save();
+////        itsPainter->at(itsCurrentPainter - 1)->begin(this);
+////        itsPainter->at(itsCurrentPainter - 1)->setPen(QPen(Qt::black, 3));
+////        itsPainter->at(itsCurrentPainter - 1)->drawLine(QPointF(itsStartX, itsStartY), QPointF(itsEndX, itsEndY));
+////        itsPainter->at(itsCurrentPainter - 1)->end();
+////        itsPainter->at(itsCurrentPainter - 1)->restore();
+////    }
 //}

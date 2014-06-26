@@ -23,21 +23,22 @@ public:
     int endY() const;
 //    void setPainter(QPainter *painter);
     QGraphicsLineItem *addLineCanvas();
+    void setSceneRect(qreal x, qreal y, qreal w, qreal h);
 signals:
     void painting(int startX, int startY, int endX, int endY);
 private:
-//    QList <QPainter*> *itsPainter;
+    QList <QPainter*> *itsPainter;
     int itsStartX;
     int itsStartY;
     int itsEndX;
     int itsEndY;
-//    int itsCurrentPainter;
+    int itsCurrentPainter;
     QGraphicsScene *itsScene;
 protected:
-    virtual void mousePressEvent(QMouseEvent *pe);
-    virtual void mouseMoveEvent(QMouseEvent *pe);
-    virtual void mouseReleaseEvent(QMouseEvent *pe);
-//    virtual void paintEvent(QPaintEvent* pe);
+    void mousePressEvent(QMouseEvent *pe);
+    void mouseMoveEvent(QMouseEvent *pe);
+//    void mouseReleaseEvent(QMouseEvent *pe);
+//    void paintEvent(QPaintEvent* pe);
 
 };
 

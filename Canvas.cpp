@@ -2,28 +2,32 @@
 
 #include <QDebug>
 
-Canvas::Canvas(QGraphicsScene *parent) :
-    QGraphicsScene(parent)
+Canvas::Canvas(QGraphicsView *parent) :
+    QGraphicsView(parent)
 //  , itsPainter(new QList<QPainter*>)
   , itsStartX(0)
   , itsStartY(0)
   , itsEndX(0)
   , itsEndY(0)
 //  , itsCurrentPainter(0)
+  , itsScene(new QGraphicsScene())
 {        
+    this->setScene(itsScene);
+    this->setSceneRect(0, 0, 250, 250);
 }
 
-Canvas::Canvas(qreal x, qreal y, qreal width, qreal height, QGraphicsScene *parent) :
-    QGraphicsScene(x, y, width, height, parent)
-//  , itsPainter(new QList<QPainter*>)
-  , itsStartX(0)
-  , itsStartY(0)
-  , itsEndX(0)
-  , itsEndY(0)
-//  , itsCurrentPainter(0)
-{
+//Canvas::Canvas(QGraphicsScene *scene, QGraphicsView *parent) :
+//    QGraphicsView(scene, parent)
+////  , itsPainter(new QList<QPainter*>)
+//  , itsStartX(0)
+//  , itsStartY(0)
+//  , itsEndX(0)
+//  , itsEndY(0)
+////  , itsCurrentPainter(0)
+//  , itsScene(scene)
+//{
 
-}
+//}
 
 Canvas::~Canvas()
 {
@@ -53,7 +57,7 @@ QGraphicsLineItem *Canvas::addLineCanvas()
 {
 //    return QGraphicsScene::addLine(startX(), startY(), endX(), endY(), QPen(QBrush(QColor(Qt::red)), 10.0));
 //    return this->addEllipse(0.0, 0.0, 100.0, 50.0);
-    return addLine(0, 0, 250, 250, QPen(QBrush(QColor(Qt::red)), 10));
+//    return addLine(0, 0, 250, 250, QPen(QBrush(QColor(Qt::red)), 10));
 }
 
 //void Canvas::setPainter(QPainter *painter)
@@ -61,25 +65,29 @@ QGraphicsLineItem *Canvas::addLineCanvas()
 //    itsPainter = painter;
 //}
 
-void Canvas::mousePressEvent(QGraphicsSceneMouseEvent *pe)
+void Canvas::mousePressEvent(QMouseEvent *pe)
 {
     qDebug() << "void MainWindow::mousePressEvent(QMouseEvent *pe)";
     if(pe->buttons() & Qt::LeftButton)
     {
-        itsStartX = pe->scenePos().toPoint().x();
-        itsStartY = pe->scenePos().toPoint().y();
+        itsStartX = pe->x();
+        itsStartY = pe->y();
+
+        itsScene->addLine(startX(), startY(), endX(), endY());
 
 //        itsPainter->append(new QPainter());
 //        ++itsCurrentPainter;
     }
 }
 
-void Canvas::mouseMoveEvent(QGraphicsSceneMouseEvent *pe)
+void Canvas::mouseMoveEvent(QMouseEvent *pe)
 {
     if(pe->buttons() & Qt::LeftButton)
     {
-        itsEndX = pe->scenePos().toPoint().x();
-        itsEndY = pe->scenePos().toPoint().y();
+        itsEndX = pe->x();
+        itsEndY = pe->y();
+
+        itsScene->addLine(startX(), startY(), endX(), endY());
 
         update();
 
@@ -87,13 +95,15 @@ void Canvas::mouseMoveEvent(QGraphicsSceneMouseEvent *pe)
     }
 }
 
-void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *pe)
+void Canvas::mouseReleaseEvent(QMouseEvent *pe)
 {
     qDebug() << "void MainWindow::mouseReleaseEvent(QMouseEvent *pe)";
     if(pe->buttons() & Qt::LeftButton)
     {
-        itsEndX = pe->scenePos().toPoint().x();
-        itsEndY = pe->scenePos().toPoint().y();
+        itsEndX = pe->x();
+        itsEndY = pe->y();
+
+        itsScene->addLine(startX(), startY(), endX(), endY());
     }
 }
 

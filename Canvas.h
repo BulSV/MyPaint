@@ -5,16 +5,17 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include <QList>
+#include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsLineItem>
 
-class Canvas : public QGraphicsScene
+class Canvas : public QGraphicsView
 {
     Q_OBJECT
 public:
-    explicit Canvas(QGraphicsScene *parent = 0);
-    explicit Canvas(qreal x, qreal y, qreal width, qreal height, QGraphicsScene *parent = 0);
+    explicit Canvas(QGraphicsView *parent = 0);
+//    explicit Canvas(QGraphicsScene *scene, QGraphicsView *parent = 0);
     ~Canvas();
     int startX() const;
     int startY() const;
@@ -31,10 +32,11 @@ private:
     int itsEndX;
     int itsEndY;
 //    int itsCurrentPainter;
+    QGraphicsScene *itsScene;
 protected:
-    virtual void mousePressEvent(QGraphicsSceneMouseEvent *pe);
-    virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *pe);
-    virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *pe);
+    virtual void mousePressEvent(QMouseEvent *pe);
+    virtual void mouseMoveEvent(QMouseEvent *pe);
+    virtual void mouseReleaseEvent(QMouseEvent *pe);
 //    virtual void paintEvent(QPaintEvent* pe);
 
 };

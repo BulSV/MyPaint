@@ -70,9 +70,9 @@ void MainWindow::newImage()
     //                            tr("User name:"), QLineEdit::Normal,
     //                            "");
 
-    QGraphicsView *view = new QGraphicsView();
+//    QGraphicsView *view = new QGraphicsView();
     Canvas *canvas = new Canvas();
-    view->setScene(canvas);
+//    view->setScene(canvas);
 
     bool nameOK;
     QString imageName = QInputDialog::getText(this, tr("Enter Name"),
@@ -86,29 +86,29 @@ void MainWindow::newImage()
 
     if(nameOK && !imageName.isEmpty())
     {
-        ui->tabWidget->addTab(view, imageName);
+        ui->tabWidget->addTab(canvas, imageName);
     }
     else
     {
-        ui->tabWidget->addTab(view, tr("No Name"));
+        ui->tabWidget->addTab(canvas, tr("No Name"));
     }
     if(imageSizePx.x() && imageSizePx.y())
     {
         canvas->setSceneRect(0, 0, imageSizePx.x(), imageSizePx.y());
 
-        canvas->QGraphicsScene::addLine(0, 0, imageSizePx.x(), 0);
-        canvas->QGraphicsScene::addLine(imageSizePx.x(), 0, imageSizePx.x(), imageSizePx.y());
-        canvas->QGraphicsScene::addLine(imageSizePx.x(), imageSizePx.y(), 0, imageSizePx.y());
-        canvas->QGraphicsScene::addLine(0, imageSizePx.y(), 0, 0);
+//        canvas->QGraphicsScene::addLine(0, 0, imageSizePx.x(), 0);
+//        canvas->QGraphicsScene::addLine(imageSizePx.x(), 0, imageSizePx.x(), imageSizePx.y());
+//        canvas->QGraphicsScene::addLine(imageSizePx.x(), imageSizePx.y(), 0, imageSizePx.y());
+//        canvas->QGraphicsScene::addLine(0, imageSizePx.y(), 0, 0);
     }
     else
     {
         canvas->setSceneRect(0, 0, 250, 250);
 
-        canvas->QGraphicsScene::addLine(0, 0, 250, 0);
-        canvas->QGraphicsScene::addLine(250, 0, 250, 250);
-        canvas->QGraphicsScene::addLine(250, 250, 0, 250);
-        canvas->QGraphicsScene::addLine(0, 250, 0, 0);
+//        canvas->QGraphicsScene::addLine(0, 0, 250, 0);
+//        canvas->QGraphicsScene::addLine(250, 0, 250, 250);
+//        canvas->QGraphicsScene::addLine(250, 250, 0, 250);
+//        canvas->QGraphicsScene::addLine(0, 250, 0, 0);
     }
     canvas->setBackgroundBrush(QBrush(QColor(255, 255, 255)));
 

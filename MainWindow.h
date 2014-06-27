@@ -11,6 +11,9 @@
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include "Canvas.h"
+#include "DrawLine.h"
+#include "DrawRectangle.h"
+#include "DrawEllipse.h"
 
 namespace Ui {
 class MainWindow;

@@ -1,7 +1,7 @@
 #include "DrawEllipse.h"
 
-DrawEllipse::DrawEllipse(DrawShape *parent) :
-    DrawShape(parent)
+DrawEllipse::DrawEllipse(const QPen &pen, const QBrush &brush, DrawShape *parent) :
+    DrawShape(pen, brush, parent)
 {
 }
 
@@ -9,7 +9,17 @@ DrawEllipse::~DrawEllipse()
 {
 }
 
-QGraphicsItem *DrawEllipse::draw(qreal x1, qreal y1, qreal x2, qreal y2, const QPen &pen)
+QRectF DrawEllipse::boundingRect() const
 {
-    return addEllipse(x1, y1, x2, y2, pen);
+    return itsEllipse->boundingRect();
+}
+
+void DrawEllipse::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    itsEllipse->paint(painter, option, widget);
+}
+
+void DrawEllipse::draw(qreal x1, qreal y1, qreal x2, qreal y2)
+{
+    itsEllipse->setRect(x1, y1, x2, y2);
 }

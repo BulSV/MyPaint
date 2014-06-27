@@ -125,5 +125,5 @@ void MainWindow::newImage()
 
 void MainWindow::on_bDrawLine_clicked()
 {
-    ((Canvas*)ui->tabWidget->currentWidget())->addLineCanvas();
+    ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawLine());
 }

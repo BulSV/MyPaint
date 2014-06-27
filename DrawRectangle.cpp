@@ -1,7 +1,7 @@
 #include "DrawRectangle.h"
 
-DrawRectangle::DrawRectangle(DrawShape *parent) :
-    DrawShape(parent)
+DrawRectangle::DrawRectangle(const QPen &pen, const QBrush &brush, DrawShape *parent) :
+    DrawShape(pen, brush, parent)
 {
 }
 
@@ -9,7 +9,17 @@ DrawRectangle::~DrawRectangle()
 {
 }
 
-QGraphicsItem *DrawRectangle::draw(qreal x1, qreal y1, qreal x2, qreal y2, const QPen &pen)
+QRectF DrawRectangle::boundingRect() const
 {
-    return addRect(x1, y1, x2, y2, pen);
+    return itsRect->boundingRect();
+}
+
+void DrawRectangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    itsRect->paint(painter, option, widget);
+}
+
+void DrawRectangle::draw(qreal x1, qreal y1, qreal x2, qreal y2)
+{
+    itsRect->setRect(x1, y1, x2, y2);
 }

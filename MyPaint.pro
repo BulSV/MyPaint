@@ -38,9 +38,17 @@ else {
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    Canvas.cpp
+    Canvas.cpp \
+    DrawShape.cpp \
+    DrawLine.cpp \
+    DrawRectangle.cpp \
+    DrawEllipse.cpp
 
 HEADERS  += MainWindow.h \
-    Canvas.h
+    Canvas.h \
+    DrawShape.h \
+    DrawLine.h \
+    DrawRectangle.h \
+    DrawEllipse.h
 
 FORMS    += MainWindow.ui

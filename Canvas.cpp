@@ -85,12 +85,6 @@ void Canvas::mousePressEvent(QMouseEvent *pe)
         itsStartX = point.x();
         itsStartY = point.y();
         itsIsLeftButtonPressed = true;
-
-//        itsScene->addLine(startX(), startY(), endX(), endY());
-//        itsScene->clear();
-
-//        itsPainter->append(new QPainter());
-//        ++itsCurrentPainter;
     }
 }
 
@@ -102,8 +96,6 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
         itsEndX = point.x();
         itsEndY = point.y();
 
-//        itsScene->clear();
-//        itsScene->addLine(startX(), startY(), endX(), endY());
         if(itsScene->items().size() > itsCurrentPainter)
         {
             QGraphicsItem *gi = itsScene->items().first();
@@ -114,8 +106,6 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
 
         itsScene->addLine(startX(), startY(), endX(), endY());
         qDebug() << "Number of Items" << itsScene->items().size();
-
-//        updateSceneRect(QRect(0,0,250,250));
 
         emit painting(startX(), startY(), endX(), endY());
     }

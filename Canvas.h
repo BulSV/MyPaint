@@ -9,6 +9,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsLineItem>
+#include "DrawShape.h"
 
 class Canvas : public QGraphicsView
 {

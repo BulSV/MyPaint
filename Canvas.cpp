@@ -10,8 +10,9 @@ Canvas::Canvas(QGraphicsView *parent) :
   , itsEndX(0)
   , itsEndY(0)
   , itsCurrentPainter(0)
+  , itsIsLeftButtonPressed(false)
   , itsScene(new QGraphicsScene())
-{        
+{
     this->setScene(itsScene);
 //    this->setSceneRect(0, 0, 250, 250);
 }
@@ -67,6 +68,7 @@ void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
     itsScene->addLine(w, 0, w, h);
     itsScene->addLine(w, h, 0, h);
     itsScene->addLine(0, h, 0, 0);
+    itsCurrentPainter = 4;
 }
 
 //void Canvas::setPainter(QPainter *painter)
@@ -75,13 +77,14 @@ void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
 //}
 
 void Canvas::mousePressEvent(QMouseEvent *pe)
-{    
+{
     if(pe->buttons() & Qt::LeftButton)
     {
         qDebug() << "void MainWindow::mousePressEvent(QMouseEvent *pe)";
         QPointF point = mapToScene(pe->pos());
         itsStartX = point.x();
         itsStartY = point.y();
+        itsIsLeftButtonPressed = true;
 
 //        itsScene->addLine(startX(), startY(), endX(), endY());
 //        itsScene->clear();
@@ -101,7 +104,7 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
 
 //        itsScene->clear();
 //        itsScene->addLine(startX(), startY(), endX(), endY());
-        if(itsScene->items().size() > 4)
+        if(itsScene->items().size() > itsCurrentPainter)
         {
             QGraphicsItem *gi = itsScene->items().first();
             itsScene->items().removeFirst();
@@ -118,19 +121,21 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
     }
 }
 
-//void Canvas::mouseReleaseEvent(QMouseEvent *pe)
-//{
-////    if(pe->buttons() & Qt::LeftButton)
-//    {
-//        qDebug() << "void MainWindow::mouseReleaseEvent(QMouseEvent *pe)";
-//        itsEndX = pe->x();
-//        itsEndY = pe->y();
-////        itsScene->clear();
+void Canvas::mouseReleaseEvent(QMouseEvent *pe)
+{
+    if(itsIsLeftButtonPressed)
+    {
+        qDebug() << "void MainWindow::mouseReleaseEvent(QMouseEvent *pe)";
+        itsEndX = pe->x();
+        itsEndY = pe->y();
+        ++itsCurrentPainter;
+        itsIsLeftButtonPressed = false;
+//        itsScene->clear();
 
-////        itsScene->addLine(startX(), startY(), endX(), endY());
-////        update();
-//    }
-//}
+//        itsScene->addLine(startX(), startY(), endX(), endY());
+//        update();
+    }
+}
 
 //void Canvas::paintEvent(QPaintEvent *pe)
 //{

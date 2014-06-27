@@ -33,11 +33,12 @@ private:
     int itsEndX;
     int itsEndY;
     int itsCurrentPainter;
+    bool itsIsLeftButtonPressed;
     QGraphicsScene *itsScene;
 protected:
     void mousePressEvent(QMouseEvent *pe);
     void mouseMoveEvent(QMouseEvent *pe);
-//    void mouseReleaseEvent(QMouseEvent *pe);
+    void mouseReleaseEvent(QMouseEvent *pe);
 //    void paintEvent(QPaintEvent* pe);
 
 };

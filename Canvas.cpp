@@ -59,10 +59,26 @@ void Canvas::mousePressEvent(QMouseEvent *pe)
     if(pe->buttons() & Qt::LeftButton)
     {
         qDebug() << "void MainWindow::mousePressEvent(QMouseEvent *pe)";
+        qDebug() << sceneRect();
+        qDebug() << sceneRect().topLeft();
+        qDebug() << sceneRect().bottomRight();
+
         QPointF point = mapToScene(pe->pos());
-        itsStartX = point.x();
-        itsStartY = point.y();
-        itsIsLeftButtonPressed = true;
+        qDebug() << point;
+        if(point.x() > sceneRect().topLeft().x()
+                && point.y() > sceneRect().topLeft().y()
+                && point.x() < sceneRect().bottomRight().x()
+                && point.y() < sceneRect().bottomRight().y())
+        {
+            itsStartX = point.x();
+            itsStartY = point.y();
+            itsIsLeftButtonPressed = true;
+        }
+        else
+        {
+            itsStartX = point.x();
+            itsStartY = point.y();
+        }
     }
 }
 
@@ -71,14 +87,34 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
     if(pe->buttons() & Qt::LeftButton)
     {
         QPointF point = mapToScene(pe->pos());
-        itsEndX = point.x();
-        itsEndY = point.y();
+        if(point.x() > sceneRect().topLeft().x()
+                && point.y() > sceneRect().topLeft().y()
+                && point.x() < sceneRect().bottomRight().x()
+                && point.y() < sceneRect().bottomRight().y())
+        {
+            itsEndX = point.x();
+            itsEndY = point.y();
 
-        ((Scene*)itsScene)->draw((DrawShape*)itsScene->items().first(), startX(), startY(), endX(), endY());
+            if(startX() < sceneRect().topLeft().x()
+                    || startY() < sceneRect().topLeft().y()
+                    || startX() > sceneRect().bottomRight().x()
+                    || startY() > sceneRect().bottomRight().y())
+            {
+                itsStartX = endX();
+                itsStartY = endY();
+            }
 
-        itsScene->update();
+            ((Scene*)itsScene)->draw((DrawShape*)itsScene->items().first(), startX(), startY(), endX(), endY());
 
-        emit painting(startX(), startY(), endX(), endY());
+            itsScene->update();
+
+            emit painting(startX(), startY(), endX(), endY());
+        }
+//        else
+//        {
+//            itsStartX = point.x();
+//            itsStartY = point.y();
+//        }
     }
 }
 

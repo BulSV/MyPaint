@@ -10,7 +10,7 @@ Canvas::Canvas(QGraphicsView *parent) :
   , itsEndY(0)
   , itsCurrentPainter(0)
   , itsIsLeftButtonPressed(false)
-  , itsScene(new QGraphicsScene())
+  , itsScene(new Scene())
 {
     this->setScene(itsScene);
 }
@@ -40,7 +40,7 @@ int Canvas::endY() const
 }
 
 void Canvas::addShape(DrawShape *shape)
-{
+{        
     itsScene->addItem(shape);
 }
 
@@ -74,17 +74,9 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
         itsEndX = point.x();
         itsEndY = point.y();
 
-        if(itsScene->items().size() > itsCurrentPainter)
-        {
-            QGraphicsItem *gi = itsScene->items().first();
-            itsScene->items().removeFirst();
-            delete gi;
-            gi = 0;
-        }
+        ((Scene*)itsScene)->draw((DrawShape*)itsScene->items().first(), startX(), startY(), endX(), endY());
 
-//        itsScene->addLine(startX(), startY(), endX(), endY());
-        ((DrawShape*)itsScene->items().at(itsCurrentPainter - 1))->draw(startX(), startY(), endX(), endY());
-        qDebug() << "Number of Items" << itsScene->items().size();
+        itsScene->update();
 
         emit painting(startX(), startY(), endX(), endY());
     }
@@ -95,8 +87,6 @@ void Canvas::mouseReleaseEvent(QMouseEvent *pe)
     if(itsIsLeftButtonPressed)
     {
         qDebug() << "void MainWindow::mouseReleaseEvent(QMouseEvent *pe)";
-        itsEndX = pe->x();
-        itsEndY = pe->y();
         ++itsCurrentPainter;
         itsIsLeftButtonPressed = false;
     }

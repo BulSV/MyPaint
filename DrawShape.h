@@ -18,7 +18,7 @@ public:
     void setBrush(const QBrush &brush);
     QPen pen() const;
     QBrush brush() const;
-    virtual void draw(qreal x1, qreal y1, qreal x2, qreal y2) = 0;
+    virtual void draw(qreal x1, qreal y1, qreal x2, qreal y2) = 0;    
 private:
     QPen itsPen;
     QBrush itsBrush;

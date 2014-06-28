@@ -2,11 +2,14 @@
 
 DrawLine::DrawLine(const QPen &pen, const QBrush &brush, DrawShape *parent) :
     DrawShape(pen, brush, parent)
+  , itsLine(new QGraphicsLineItem())
 {
 }
 
 DrawLine::~DrawLine()
 {
+    delete itsLine;
+    itsLine = 0;
 }
 
 void DrawLine::draw(qreal x1, qreal y1, qreal x2, qreal y2)

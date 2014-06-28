@@ -91,7 +91,7 @@ public:
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setCursor(QCursor(Qt::CrossCursor));
         tabWidget->setMouseTracking(false);
-        tabWidget->setStyleSheet(QStringLiteral("QWidget { background-color: white; }"));
+        tabWidget->setStyleSheet(QStringLiteral("QWidget { background-color: grey; }"));
         tabWidget->setDocumentMode(true);
         tabWidget->setTabsClosable(true);
         tab = new QWidget();

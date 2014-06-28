@@ -39,6 +39,8 @@ private slots:
     void setStartXY_EndXY(int startX, int startY, int endX, int endY);
     void newImage();
     void on_bDrawLine_clicked();
+    void on_bDrawRectangle_clicked();
+    void on_bDrawEllipse_clicked();
 };
 
 #endif // MAINWINDOW_H

@@ -24,7 +24,7 @@
        <bool>false</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true">QWidget { background-color: white; }</string>
+       <string notr="true">QWidget { background-color: grey; }</string>
       </property>
       <property name="currentIndex">
        <number>0</number>

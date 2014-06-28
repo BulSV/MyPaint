@@ -10,6 +10,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsItem>
 #include "DrawShape.h"
+#include "Scene.h"
 
 class Canvas : public QGraphicsView
 {
@@ -32,7 +33,7 @@ private:
     int itsEndY;
     int itsCurrentPainter;
     bool itsIsLeftButtonPressed;
-    QGraphicsScene *itsScene;
+    Scene *itsScene;
 protected:
     void mousePressEvent(QMouseEvent *pe);
     void mouseMoveEvent(QMouseEvent *pe);

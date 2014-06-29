@@ -53,19 +53,26 @@ void MainWindow::newImage()
                                               tr("Image name:"), QLineEdit::Normal,
                                               "", &nameOK);
 
+    if(nameOK)
+    {
+        if(!imageName.isEmpty())
+        {
+            ui->tabWidget->addTab(canvas, imageName);
+        }
+        else
+        {
+            ui->tabWidget->addTab(canvas, tr("untitled"));
+        }
+    }
+    else
+    {
+        return;
+    }
+
     QPoint imageSizePx;
     imageSizePx.setX(QInputDialog::getInt(this, tr("Enter Width"), tr("Image Width Size, px")));
     imageSizePx.setY(QInputDialog::getInt(this, tr("Enter Height"), tr("Image Height Size, px")));
 
-
-    if(nameOK && !imageName.isEmpty())
-    {
-        ui->tabWidget->addTab(canvas, imageName);
-    }
-    else
-    {
-        ui->tabWidget->addTab(canvas, tr("untitled"));
-    }
     if(imageSizePx.x() && imageSizePx.y())
     {
         canvas->setSceneRect(0, 0, imageSizePx.x(), imageSizePx.y());

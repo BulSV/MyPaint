@@ -10,6 +10,7 @@ Canvas::Canvas(QGraphicsView *parent) :
   , itsEndY(0)
   , itsCurrentPainter(0)
   , itsIsLeftButtonPressed(false)
+  , itsIsShapeSet(false)
   , itsScene(new Scene())
 {
     this->setScene(itsScene);
@@ -42,16 +43,28 @@ int Canvas::endY() const
 void Canvas::addShape(DrawShape *shape)
 {        
     itsScene->addItem(shape);
+    itsIsShapeSet = true;
 }
 
 void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
 {
     itsScene->setSceneRect(x, y, w, h);
-    itsScene->addLine(0, 0, w, 0);
-    itsScene->addLine(w, 0, w, h);
-    itsScene->addLine(w, h, 0, h);
-    itsScene->addLine(0, h, 0, 0);
-    itsCurrentPainter = 4;
+
+    qreal width = 0.5;
+    QPen pen(QBrush(Qt::gray), width);
+    pen.setCapStyle(Qt::SquareCap);
+    pen.setJoinStyle(Qt::MiterJoin);
+
+    qreal widthShadow = 5;
+    QPen penShadow(QBrush(Qt::gray), widthShadow);
+    penShadow.setCapStyle(Qt::SquareCap);
+    penShadow.setJoinStyle(Qt::RoundJoin);
+
+    itsScene->addRect(0, 0, w , h, pen);
+    itsScene->addLine(w + widthShadow/2, widthShadow, w + widthShadow/2, h + widthShadow/2, penShadow);
+    itsScene->addLine(widthShadow, h + widthShadow/2, w + widthShadow/2, h + widthShadow/2, penShadow);
+
+    itsCurrentPainter = 3;
 }
 
 void Canvas::mousePressEvent(QMouseEvent *pe)
@@ -104,17 +117,15 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
                 itsStartY = endY();
             }
 
-            ((Scene*)itsScene)->draw((DrawShape*)itsScene->items().first(), startX(), startY(), endX(), endY());
+            if(itsIsShapeSet)
+            {
+                ((Scene*)itsScene)->draw((DrawShape*)itsScene->items().first(), startX(), startY(), endX(), endY());
 
-            itsScene->update();
+                itsScene->update();
+            }
 
             emit painting(startX(), startY(), endX(), endY());
         }
-//        else
-//        {
-//            itsStartX = point.x();
-//            itsStartY = point.y();
-//        }
     }
 }
 
@@ -125,5 +136,6 @@ void Canvas::mouseReleaseEvent(QMouseEvent *pe)
         qDebug() << "void MainWindow::mouseReleaseEvent(QMouseEvent *pe)";
         ++itsCurrentPainter;
         itsIsLeftButtonPressed = false;
+        itsIsShapeSet = false;
     }
 }

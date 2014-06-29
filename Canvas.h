@@ -33,6 +33,7 @@ private:
     int itsEndY;
     int itsCurrentPainter;
     bool itsIsLeftButtonPressed;
+    bool itsIsShapeSet;
     Scene *itsScene;
 protected:
     void mousePressEvent(QMouseEvent *pe);

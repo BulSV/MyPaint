@@ -145,9 +145,17 @@ void MainWindow::on_bPenWidth_clicked()
 
 void MainWindow::open()
 {
-    if(ui->tabWidget->currentWidget())
-    {
-        ((Canvas*)ui->tabWidget->currentWidget())->clear();
-    }
     QString fileName = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.jpg *.bmp *.png");
+    QPixmap pixmap(fileName);
+    if(!fileName.isEmpty())
+    {
+        if(!ui->tabWidget->currentWidget())
+        {
+            Canvas *canvas = new Canvas();
+            QStringList list = fileName.split("/");
+            ui->tabWidget->addTab(canvas, list.at(list.size() - 1));
+        }
+        ((Canvas*)ui->tabWidget->currentWidget())->clear();
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawPixmap(pixmap));
+    }
 }

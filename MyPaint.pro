@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     DrawRectangle.cpp \
     DrawEllipse.cpp \
     Scene.cpp \
-    DrawText.cpp
+    DrawText.cpp \
+    DrawPixmap.cpp
 
 HEADERS  += MainWindow.h \
     Canvas.h \
@@ -53,6 +54,7 @@ HEADERS  += MainWindow.h \
     DrawRectangle.h \
     DrawEllipse.h \
     Scene.h \
-    DrawText.h
+    DrawText.h \
+    DrawPixmap.h
 
 FORMS    += MainWindow.ui

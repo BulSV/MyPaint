@@ -17,6 +17,7 @@
 #include "DrawRectangle.h"
 #include "DrawEllipse.h"
 #include "DrawText.h"
+#include "DrawPixmap.h"
 
 namespace Ui {
 class MainWindow;

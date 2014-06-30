@@ -90,6 +90,11 @@ int Canvas::width() const
     return itsPen.width();
 }
 
+void Canvas::clear()
+{
+    itsScene->clear();
+}
+
 void Canvas::mousePressEvent(QMouseEvent *pe)
 {
     if(pe->buttons() & Qt::LeftButton)

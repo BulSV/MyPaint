@@ -87,7 +87,7 @@ void MainWindow::newImage()
 
 void MainWindow::on_bDrawLine_clicked()
 {    
-    if(!ui->tabWidget->children().isEmpty())
+    if(ui->tabWidget->currentWidget())
     {
         ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawLine());
     }
@@ -95,7 +95,7 @@ void MainWindow::on_bDrawLine_clicked()
 
 void MainWindow::on_bDrawRectangle_clicked()
 {
-    if(!ui->tabWidget->children().isEmpty())
+    if(ui->tabWidget->currentWidget())
     {
         ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawRectangle());
     }
@@ -103,7 +103,7 @@ void MainWindow::on_bDrawRectangle_clicked()
 
 void MainWindow::on_bDrawEllipse_clicked()
 {
-    if(!ui->tabWidget->children().isEmpty())
+    if(ui->tabWidget->currentWidget())
     {
         ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawEllipse());
     }
@@ -111,7 +111,7 @@ void MainWindow::on_bDrawEllipse_clicked()
 
 void MainWindow::on_bDrawText_clicked()
 {
-    if(!ui->tabWidget->children().isEmpty())
+    if(ui->tabWidget->currentWidget())
     {
         bool nameOK;
         QString text = QInputDialog::getText(this, tr("Enter Text"),
@@ -126,13 +126,28 @@ void MainWindow::on_bDrawText_clicked()
 
 void MainWindow::on_bPenColor_clicked()
 {
-    QColor color(QColorDialog::getColor(((Canvas*)ui->tabWidget->currentWidget())->color()));
+    if(ui->tabWidget->currentWidget())
+    {
+        QColor color(QColorDialog::getColor(((Canvas*)ui->tabWidget->currentWidget())->color()));
 
-    ((Canvas*)ui->tabWidget->currentWidget())->setColor(color);
+        ((Canvas*)ui->tabWidget->currentWidget())->setColor(color);
+    }
 }
 
 void MainWindow::on_bPenWidth_clicked()
 {    
-    int width(QInputDialog::getInt(this, tr("Enter Pen Width"), tr("Pen Width, px")));
-    ((Canvas*)ui->tabWidget->currentWidget())->setWidth(width);
+    if(ui->tabWidget->currentWidget())
+    {
+        int width(QInputDialog::getInt(this, tr("Enter Pen Width"), tr("Pen Width, px")));
+        ((Canvas*)ui->tabWidget->currentWidget())->setWidth(width);
+    }
+}
+
+void MainWindow::open()
+{
+    if(ui->tabWidget->currentWidget())
+    {
+        ((Canvas*)ui->tabWidget->currentWidget())->clear();
+    }
+    QString fileName = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.jpg *.bmp *.png");
 }

@@ -29,6 +29,7 @@ public:
     QColor color() const;
     void setWidth(int width);
     int width() const;
+    void clear();
 signals:
     void painting(int startX, int startY, int endX, int endY);
 private:    

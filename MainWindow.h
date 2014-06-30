@@ -11,6 +11,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QColorDialog>
+#include <QFileDialog>
 #include "Canvas.h"
 #include "DrawLine.h"
 #include "DrawRectangle.h"
@@ -46,6 +47,7 @@ private slots:
     void on_bDrawText_clicked();
     void on_bPenColor_clicked();
     void on_bPenWidth_clicked();
+    void open();
 };
 
 #endif // MAINWINDOW_H

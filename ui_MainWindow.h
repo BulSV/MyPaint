@@ -192,6 +192,7 @@ public:
         QObject::connect(drawingTools, SIGNAL(visibilityChanged(bool)), actionShowDrawingTools, SLOT(setDisabled(bool)));
         QObject::connect(drawingTools, SIGNAL(visibilityChanged(bool)), actionHideDrawingTools, SLOT(setEnabled(bool)));
         QObject::connect(actionNew, SIGNAL(triggered()), MainWindow, SLOT(newImage()));
+        QObject::connect(actionOpen, SIGNAL(triggered()), MainWindow, SLOT(open()));
 
         tabWidget->setCurrentIndex(0);
 

@@ -127,6 +127,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="bDrawText">
+       <property name="text">
+        <string>Text</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="Line" name="line">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>

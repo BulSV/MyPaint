@@ -8,6 +8,13 @@ DrawEllipse::DrawEllipse(const QPen &pen, const QBrush &brush, DrawShape *parent
 
 DrawEllipse::~DrawEllipse()
 {
+    delete itsEllipse;
+    itsEllipse = 0;
+}
+
+int DrawEllipse::type() const
+{
+    return Type;
 }
 
 QRectF DrawEllipse::boundingRect() const
@@ -22,5 +29,6 @@ void DrawEllipse::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 
 void DrawEllipse::draw(qreal x1, qreal y1, qreal x2, qreal y2)
 {
+    itsEllipse->setPen(pen());
     itsEllipse->setRect(x1, y1, x2 - x1, y2 - y1);
 }

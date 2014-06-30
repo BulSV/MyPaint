@@ -12,8 +12,14 @@ DrawLine::~DrawLine()
     itsLine = 0;
 }
 
+int DrawLine::type() const
+{
+    return Type;
+}
+
 void DrawLine::draw(qreal x1, qreal y1, qreal x2, qreal y2)
 {
+    itsLine->setPen(pen());
     itsLine->setLine(x1, y1, x2, y2);
 }
 

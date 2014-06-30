@@ -1,8 +1,7 @@
 #include "DrawShape.h"
 
 DrawShape::DrawShape(const QPen &pen, const QBrush &brush, QGraphicsItem *parent) :
-    QObject()
-  , QGraphicsItem(parent)
+    QGraphicsItem(parent)
   , itsPen(pen)
   , itsBrush(brush)
 {
@@ -11,6 +10,11 @@ DrawShape::DrawShape(const QPen &pen, const QBrush &brush, QGraphicsItem *parent
 
 DrawShape::~DrawShape()
 {
+}
+
+int DrawShape::type() const
+{
+    return Type;
 }
 
 void DrawShape::setPen(const QPen &pen)

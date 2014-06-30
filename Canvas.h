@@ -24,6 +24,11 @@ public:
     int endY() const;
     void addShape(DrawShape *shape);
     void setSceneRect(qreal x, qreal y, qreal w, qreal h);
+    DrawShape *currentShape();
+    void setColor(QColor color);
+    QColor color() const;
+    void setWidth(int width);
+    int width() const;
 signals:
     void painting(int startX, int startY, int endX, int endY);
 private:    
@@ -31,10 +36,10 @@ private:
     int itsStartY;
     int itsEndX;
     int itsEndY;
-    int itsCurrentPainter;
     bool itsIsLeftButtonPressed;
     bool itsIsShapeSet;
     Scene *itsScene;
+    QPen itsPen;
 protected:
     void mousePressEvent(QMouseEvent *pe);
     void mouseMoveEvent(QMouseEvent *pe);

@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->statusBar->addWidget(lEndY);
 
     ui->tabWidget->removeTab(0);
-    ui->tabWidget->removeTab(0);    
+    ui->tabWidget->removeTab(0);
 
     connect(ui->actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
     connect((Canvas*)ui->tabWidget->currentWidget(), SIGNAL(painting(int,int,int,int)), this, SLOT(setStartXY_EndXY(int,int,int,int)));
@@ -87,15 +87,52 @@ void MainWindow::newImage()
 
 void MainWindow::on_bDrawLine_clicked()
 {    
-    ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawLine());
+    if(!ui->tabWidget->children().isEmpty())
+    {
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawLine());
+    }
 }
 
 void MainWindow::on_bDrawRectangle_clicked()
 {
-    ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawRectangle());
+    if(!ui->tabWidget->children().isEmpty())
+    {
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawRectangle());
+    }
 }
 
 void MainWindow::on_bDrawEllipse_clicked()
 {
-    ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawEllipse());
+    if(!ui->tabWidget->children().isEmpty())
+    {
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawEllipse());
+    }
+}
+
+void MainWindow::on_bDrawText_clicked()
+{
+    if(!ui->tabWidget->children().isEmpty())
+    {
+        bool nameOK;
+        QString text = QInputDialog::getText(this, tr("Enter Text"),
+                                             tr("Text:"), QLineEdit::Normal,
+                                             "", &nameOK);
+        if(nameOK)
+        {
+            ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawText(text));
+        }
+    }
+}
+
+void MainWindow::on_bPenColor_clicked()
+{
+    QColor color(QColorDialog::getColor(((Canvas*)ui->tabWidget->currentWidget())->color()));
+
+    ((Canvas*)ui->tabWidget->currentWidget())->setColor(color);
+}
+
+void MainWindow::on_bPenWidth_clicked()
+{    
+    int width(QInputDialog::getInt(this, tr("Enter Pen Width"), tr("Pen Width, px")));
+    ((Canvas*)ui->tabWidget->currentWidget())->setWidth(width);
 }

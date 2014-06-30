@@ -8,10 +8,10 @@ Canvas::Canvas(QGraphicsView *parent) :
   , itsStartY(0)
   , itsEndX(0)
   , itsEndY(0)
-  , itsCurrentPainter(0)
   , itsIsLeftButtonPressed(false)
   , itsIsShapeSet(false)
   , itsScene(new Scene())
+  , itsPen(QPen())
 {
     this->setScene(itsScene);
 }
@@ -60,24 +60,41 @@ void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
     penShadow.setCapStyle(Qt::SquareCap);
     penShadow.setJoinStyle(Qt::RoundJoin);
 
-    itsScene->addRect(0, 0, w , h, pen);
-    itsScene->addLine(w + widthShadow/2, widthShadow, w + widthShadow/2, h + widthShadow/2, penShadow);
-    itsScene->addLine(widthShadow, h + widthShadow/2, w + widthShadow/2, h + widthShadow/2, penShadow);
+    itsScene->addRect(x, y, w , h, pen);
+    itsScene->addLine(x+ w + (widthShadow - width)/2, y + widthShadow, x + w + (widthShadow - width)/2, y + h + widthShadow/2, penShadow);
+    itsScene->addLine(x + widthShadow, y + h + (widthShadow - width)/2, x + w + widthShadow/2, y + h + (widthShadow - width)/2, penShadow);
+}
 
-    itsCurrentPainter = 3;
+DrawShape *Canvas::currentShape()
+{
+    return (DrawShape*)itsScene->items().first();
+}
+
+void Canvas::setColor(QColor color)
+{
+    itsPen.setColor(color);
+}
+
+QColor Canvas::color() const
+{
+    return itsPen.color();
+}
+
+void Canvas::setWidth(int width)
+{
+    itsPen.setWidth(width);
+}
+
+int Canvas::width() const
+{
+    return itsPen.width();
 }
 
 void Canvas::mousePressEvent(QMouseEvent *pe)
 {
     if(pe->buttons() & Qt::LeftButton)
-    {
-        qDebug() << "void MainWindow::mousePressEvent(QMouseEvent *pe)";
-        qDebug() << sceneRect();
-        qDebug() << sceneRect().topLeft();
-        qDebug() << sceneRect().bottomRight();
-
-        QPointF point = mapToScene(pe->pos());
-        qDebug() << point;
+    {        
+        QPointF point = mapToScene(pe->pos());        
         if(point.x() > sceneRect().topLeft().x()
                 && point.y() > sceneRect().topLeft().y()
                 && point.x() < sceneRect().bottomRight().x()
@@ -85,13 +102,13 @@ void Canvas::mousePressEvent(QMouseEvent *pe)
         {
             itsStartX = point.x();
             itsStartY = point.y();
-            itsIsLeftButtonPressed = true;
+            itsIsLeftButtonPressed = true;           
         }
         else
         {
             itsStartX = point.x();
             itsStartY = point.y();
-        }
+        }        
     }
 }
 
@@ -119,8 +136,8 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
 
             if(itsIsShapeSet)
             {
+                ((DrawShape*)itsScene->items().first())->setPen(itsPen);
                 ((Scene*)itsScene)->draw((DrawShape*)itsScene->items().first(), startX(), startY(), endX(), endY());
-
                 itsScene->update();
             }
 
@@ -132,9 +149,7 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
 void Canvas::mouseReleaseEvent(QMouseEvent *pe)
 {
     if(itsIsLeftButtonPressed)
-    {
-        qDebug() << "void MainWindow::mouseReleaseEvent(QMouseEvent *pe)";
-        ++itsCurrentPainter;
+    {        
         itsIsLeftButtonPressed = false;
         itsIsShapeSet = false;
     }

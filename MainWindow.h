@@ -10,10 +10,12 @@
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QGraphicsItem>
+#include <QColorDialog>
 #include "Canvas.h"
 #include "DrawLine.h"
 #include "DrawRectangle.h"
 #include "DrawEllipse.h"
+#include "DrawText.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,7 +42,10 @@ private slots:
     void newImage();
     void on_bDrawLine_clicked();
     void on_bDrawRectangle_clicked();
-    void on_bDrawEllipse_clicked();
+    void on_bDrawEllipse_clicked();    
+    void on_bDrawText_clicked();
+    void on_bPenColor_clicked();
+    void on_bPenWidth_clicked();
 };
 
 #endif // MAINWINDOW_H

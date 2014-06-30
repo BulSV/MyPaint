@@ -1,19 +1,17 @@
 #ifndef DRAWSHAPE_H
 #define DRAWSHAPE_H
 
-//#include <QGraphicsScene>
 #include <QGraphicsItem>
-#include <QObject>
 #include <QPen>
 #include <QBrush>
-//#include <QGraphicsObject>
 
-class DrawShape : /*public QGraphicsObject*/public QObject, public QGraphicsItem
+class DrawShape : public QGraphicsItem
 {
-    Q_OBJECT
 public:
+    enum {Type = UserType + 1};
     explicit DrawShape(const QPen &pen = QPen(), const QBrush &brush = QBrush(), QGraphicsItem *parent = 0);
     virtual ~DrawShape();
+    int type() const;
     void setPen(const QPen &pen);
     void setBrush(const QBrush &brush);
     QPen pen() const;

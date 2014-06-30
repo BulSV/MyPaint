@@ -6,7 +6,7 @@
 
 class Scene : public QGraphicsScene
 {
-    Q_OBJECT
+//    Q_OBJECT
 public:
     explicit Scene(QObject *parent = 0);
     virtual ~Scene();

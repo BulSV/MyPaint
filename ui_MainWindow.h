@@ -57,6 +57,7 @@ public:
     QPushButton *bDrawLine;
     QPushButton *bDrawRectangle;
     QPushButton *bDrawEllipse;
+    QPushButton *bDrawText;
     QFrame *line;
     QPushButton *bPenColor;
     QPushButton *bPenWidth;
@@ -144,6 +145,11 @@ public:
 
         verticalLayout->addWidget(bDrawEllipse);
 
+        bDrawText = new QPushButton(dockWidgetContents_2);
+        bDrawText->setObjectName(QStringLiteral("bDrawText"));
+
+        verticalLayout->addWidget(bDrawText);
+
         line = new QFrame(dockWidgetContents_2);
         line->setObjectName(QStringLiteral("line"));
         line->setFrameShape(QFrame::HLine);
@@ -227,6 +233,7 @@ public:
         bDrawEllipse->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Draw Ellipse</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
         bDrawEllipse->setText(QApplication::translate("MainWindow", "Ellipse", 0));
+        bDrawText->setText(QApplication::translate("MainWindow", "Text", 0));
 #ifndef QT_NO_TOOLTIP
         bPenColor->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Set Pen Color</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP

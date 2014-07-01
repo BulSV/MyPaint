@@ -51,12 +51,12 @@ void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
     itsScene->setSceneRect(x, y, w, h);
 
     qreal width = 0.5;
-    QPen pen(QBrush(Qt::gray), width);
+    QPen pen(QBrush(Qt::black), width);
     pen.setCapStyle(Qt::SquareCap);
     pen.setJoinStyle(Qt::MiterJoin);
 
     qreal widthShadow = 5;
-    QPen penShadow(QBrush(Qt::gray), widthShadow);
+    QPen penShadow(QBrush(Qt::black), widthShadow);
     penShadow.setCapStyle(Qt::SquareCap);
     penShadow.setJoinStyle(Qt::RoundJoin);
 
@@ -95,11 +95,21 @@ void Canvas::clear()
     itsScene->clear();
 }
 
+QRectF Canvas::drawRect() const
+{
+    QPoint p1 = mapFromScene(QPointF(itsScene->sceneRect().topLeft().x(), itsScene->sceneRect().topLeft().y()));
+    QPoint p2 = mapFromScene(QPointF(itsScene->sceneRect().bottomRight().x(), itsScene->sceneRect().bottomRight().y()));
+
+    QRectF rect(p1, p2);
+
+    return rect;
+}
+
 void Canvas::mousePressEvent(QMouseEvent *pe)
 {
     if(pe->buttons() & Qt::LeftButton)
-    {        
-        QPointF point = mapToScene(pe->pos());        
+    {
+        QPointF point = mapToScene(pe->pos());
         if(point.x() > sceneRect().topLeft().x()
                 && point.y() > sceneRect().topLeft().y()
                 && point.x() < sceneRect().bottomRight().x()
@@ -107,13 +117,13 @@ void Canvas::mousePressEvent(QMouseEvent *pe)
         {
             itsStartX = point.x();
             itsStartY = point.y();
-            itsIsLeftButtonPressed = true;           
+            itsIsLeftButtonPressed = true;
         }
         else
         {
             itsStartX = point.x();
             itsStartY = point.y();
-        }        
+        }
     }
 }
 
@@ -154,7 +164,7 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
 void Canvas::mouseReleaseEvent(QMouseEvent *pe)
 {
     if(itsIsLeftButtonPressed)
-    {        
+    {
         itsIsLeftButtonPressed = false;
         itsIsShapeSet = false;
     }

@@ -30,6 +30,7 @@ public:
     void setWidth(int width);
     int width() const;
     void clear();
+    QRectF drawRect() const;
 signals:
     void painting(int startX, int startY, int endX, int endY);
 private:    

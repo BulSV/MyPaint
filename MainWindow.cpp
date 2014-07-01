@@ -162,10 +162,17 @@ void MainWindow::open()
 
 void MainWindow::save()
 {
-    QRect rect = ((Canvas*)ui->tabWidget->currentWidget())->viewport()->rect();
+    ((Canvas*)ui->tabWidget->currentWidget())->adjustSize();
+
+    QRect rect = ((Canvas*)ui->tabWidget->currentWidget())->drawRect().toRect();
+
+    ((Canvas*)ui->tabWidget->currentWidget())->resize(rect.width(), rect.height());
+
     QPixmap pixmap(rect.width(), rect.height());
+
     QPainter painter(&pixmap);
-    ((Canvas*)ui->tabWidget->currentWidget())->render(&painter, rect, rect, Qt::IgnoreAspectRatio);
+    painter.setRenderHints(QPainter::Antialiasing | QPainter::TextAntialiasing);
+    ((Canvas*)ui->tabWidget->currentWidget())->render(&painter, rect, rect);
     painter.end();
 
     QString fileName = QFileDialog::getSaveFileName(0, "Save Dialog", "", "*.bmp *.jpg *.png");

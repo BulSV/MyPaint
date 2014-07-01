@@ -7,7 +7,7 @@
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
-{    
+{
     ui->setupUi(this);
     lStartX = new QLabel(this);
     lStartY = new QLabel(this);
@@ -45,7 +45,7 @@ void MainWindow::setStartXY_EndXY(int startX, int startY, int endX, int endY)
 }
 
 void MainWindow::newImage()
-{    
+{
     Canvas *canvas = new Canvas();
 
     bool nameOK;
@@ -86,7 +86,7 @@ void MainWindow::newImage()
 
 
 void MainWindow::on_bDrawLine_clicked()
-{    
+{
     if(ui->tabWidget->currentWidget())
     {
         ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawLine());
@@ -135,7 +135,7 @@ void MainWindow::on_bPenColor_clicked()
 }
 
 void MainWindow::on_bPenWidth_clicked()
-{    
+{
     if(ui->tabWidget->currentWidget())
     {
         int width(QInputDialog::getInt(this, tr("Enter Pen Width"), tr("Pen Width, px")));
@@ -145,7 +145,7 @@ void MainWindow::on_bPenWidth_clicked()
 
 void MainWindow::open()
 {
-    QString fileName = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.jpg *.bmp *.png");
+    QString fileName = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.bmp *.jpg *.png");
     QPixmap pixmap(fileName);
     if(!fileName.isEmpty())
     {
@@ -158,4 +158,25 @@ void MainWindow::open()
         ((Canvas*)ui->tabWidget->currentWidget())->clear();
         ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawPixmap(pixmap));
     }
+}
+
+void MainWindow::save()
+{
+    QRect rect = ((Canvas*)ui->tabWidget->currentWidget())->viewport()->rect();
+    QPixmap pixmap(rect.width(), rect.height());
+    QPainter painter(&pixmap);
+    ((Canvas*)ui->tabWidget->currentWidget())->render(&painter, rect, rect, Qt::IgnoreAspectRatio);
+    painter.end();
+
+    QString fileName = QFileDialog::getSaveFileName(0, "Save Dialog", "", "*.bmp *.jpg *.png");
+    QStringList list = fileName.split(".");
+    const char *format = list.at(list.size() - 1).toStdString().c_str();
+
+    QString saveName;
+    for(int i = 0; i < list.size() - 1; ++i)
+    {
+        saveName += list.at(i);
+    }
+
+    pixmap.save(fileName, format);
 }

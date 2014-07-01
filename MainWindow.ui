@@ -24,7 +24,7 @@
        <bool>false</bool>
       </property>
       <property name="styleSheet">
-       <string notr="true">QWidget { background-color: grey; }</string>
+       <string notr="true">QWidget { background-color: lightGray; }</string>
       </property>
       <property name="currentIndex">
        <number>0</number>
@@ -56,7 +56,7 @@
      <x>0</x>
      <y>0</y>
      <width>529</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -323,9 +323,42 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionSave</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>save()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>264</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>264</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>newImage()</slot>
   <slot>open()</slot>
+  <slot>save()</slot>
  </slots>
 </ui>

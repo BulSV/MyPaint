@@ -92,7 +92,7 @@ public:
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setCursor(QCursor(Qt::CrossCursor));
         tabWidget->setMouseTracking(false);
-        tabWidget->setStyleSheet(QStringLiteral("QWidget { background-color: grey; }"));
+        tabWidget->setStyleSheet(QStringLiteral("QWidget { background-color: lightGray; }"));
         tabWidget->setDocumentMode(true);
         tabWidget->setTabsClosable(true);
         tab = new QWidget();
@@ -111,7 +111,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 529, 25));
+        menuBar->setGeometry(QRect(0, 0, 529, 20));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHelp = new QMenu(menuBar);
@@ -193,6 +193,8 @@ public:
         QObject::connect(drawingTools, SIGNAL(visibilityChanged(bool)), actionHideDrawingTools, SLOT(setEnabled(bool)));
         QObject::connect(actionNew, SIGNAL(triggered()), MainWindow, SLOT(newImage()));
         QObject::connect(actionOpen, SIGNAL(triggered()), MainWindow, SLOT(open()));
+        QObject::connect(actionSave, SIGNAL(triggered()), MainWindow, SLOT(save()));
+        QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
 
         tabWidget->setCurrentIndex(0);
 

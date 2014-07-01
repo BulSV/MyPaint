@@ -44,11 +44,12 @@ private slots:
     void newImage();
     void on_bDrawLine_clicked();
     void on_bDrawRectangle_clicked();
-    void on_bDrawEllipse_clicked();    
+    void on_bDrawEllipse_clicked();
     void on_bDrawText_clicked();
     void on_bPenColor_clicked();
     void on_bPenWidth_clicked();
     void open();
+    void save();
 };
 
 #endif // MAINWINDOW_H

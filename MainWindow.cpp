@@ -160,7 +160,7 @@ void MainWindow::open()
         }
         if(!ui->tabWidget->currentWidget())
         {
-            Canvas *canvas = new Canvas();            
+            Canvas *canvas = new Canvas();
             ui->tabWidget->addTab(canvas, list.at(list.size() - 1));
         }
         else
@@ -189,21 +189,24 @@ void MainWindow::save()
     painter.end();
 
     QString fileName = QFileDialog::getSaveFileName(this, "Save Dialog", currentDirSave, tr("Images (*.bmp *.jpg *.png)"));
-    QStringList list = fileName.split("/");
-    for(int i = 0; i < list.size() - 1; ++i)
+    if(!fileName.isEmpty())
     {
-        currentDirSave += list.at(i) + "/";
-    }
-    qDebug() << "Save: " << fileName;
-    QStringList listFormat = fileName.split(".");
-    const char *format = listFormat.at(listFormat.size() - 1).toStdString().c_str();
+        QStringList list = fileName.split("/");
+        for(int i = 0; i < list.size() - 1; ++i)
+        {
+            currentDirSave += list.at(i) + "/";
+        }
+        qDebug() << "Save: " << fileName;
+        QStringList listFormat = fileName.split(".");
+        const char *format = listFormat.at(listFormat.size() - 1).toStdString().c_str();
 
-    QString saveName;
-    for(int i = 0; i < listFormat.size() - 1; ++i)
-    {
-        saveName += listFormat.at(i);
-    }
+        QString saveName;
+        for(int i = 0; i < listFormat.size() - 1; ++i)
+        {
+            saveName += listFormat.at(i);
+        }
 
-    pixmap.save(fileName, format);
-    ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), list.at(list.size() - 1));
+        pixmap.save(fileName, format);
+        ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), list.at(list.size() - 1));
+    }
 }

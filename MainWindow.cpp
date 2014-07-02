@@ -145,7 +145,7 @@ void MainWindow::on_bPenWidth_clicked()
 
 void MainWindow::open()
 {
-    QString fileName = QFileDialog::getOpenFileName(0, "Open Dialog", "", "*.bmp *.jpg *.png");
+    QString fileName = QFileDialog::getOpenFileName(0, "Open Dialog", "", tr("Images (*.bmp *.jpg *.png)"));
     QPixmap pixmap(fileName);
     if(!fileName.isEmpty())
     {
@@ -156,6 +156,7 @@ void MainWindow::open()
             ui->tabWidget->addTab(canvas, list.at(list.size() - 1));
         }
         ((Canvas*)ui->tabWidget->currentWidget())->clear();
+        ((Canvas*)ui->tabWidget->currentWidget())->setSceneRect(0, 0, pixmap.size().width(), pixmap.size().height());
         ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawPixmap(pixmap));
     }
 }
@@ -175,7 +176,7 @@ void MainWindow::save()
     ((Canvas*)ui->tabWidget->currentWidget())->render(&painter, rect, rect);
     painter.end();
 
-    QString fileName = QFileDialog::getSaveFileName(0, "Save Dialog", "", "*.bmp *.jpg *.png");
+    QString fileName = QFileDialog::getSaveFileName(0, "Save Dialog", "", tr("Images (*.bmp *.jpg *.png)"));
     QStringList list = fileName.split(".");
     const char *format = list.at(list.size() - 1).toStdString().c_str();
 

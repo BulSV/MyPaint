@@ -38,6 +38,8 @@ private:
     QLabel *lEndX;
     QLabel *lEndY;
     QFrame *frmXYLineSeparator;
+    QString currentDirOpen;
+    QString currentDirSave;
 //    Canvas *canvas;
 private slots:
     void setStartXY_EndXY(int startX, int startY, int endX, int endY);

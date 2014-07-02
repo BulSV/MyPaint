@@ -18,6 +18,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     frmXYLineSeparator->setFrameShape(QFrame::VLine);
 
+    currentDirOpen = "";
+    currentDirSave = "";
+
     ui->statusBar->addWidget(lStartX);
     ui->statusBar->addWidget(lStartY);
     ui->statusBar->addWidget(frmXYLineSeparator);
@@ -145,15 +148,24 @@ void MainWindow::on_bPenWidth_clicked()
 
 void MainWindow::open()
 {
-    QString fileName = QFileDialog::getOpenFileName(0, "Open Dialog", "", tr("Images (*.bmp *.jpg *.png)"));
+    QString fileName = QFileDialog::getOpenFileName(this, "Open Dialog", currentDirOpen, tr("Images (*.bmp *.jpg *.png)"));
+    qDebug() << "Open: " << fileName;
     QPixmap pixmap(fileName);
     if(!fileName.isEmpty())
     {
+        QStringList list = fileName.split("/");
+        for(int i = 0; i < list.size() - 1; ++i)
+        {
+            currentDirOpen += list.at(i) + "/";
+        }
         if(!ui->tabWidget->currentWidget())
         {
-            Canvas *canvas = new Canvas();
-            QStringList list = fileName.split("/");
+            Canvas *canvas = new Canvas();            
             ui->tabWidget->addTab(canvas, list.at(list.size() - 1));
+        }
+        else
+        {
+            ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), list.at(list.size() - 1));
         }
         ((Canvas*)ui->tabWidget->currentWidget())->clear();
         ((Canvas*)ui->tabWidget->currentWidget())->setSceneRect(0, 0, pixmap.size().width(), pixmap.size().height());
@@ -176,15 +188,22 @@ void MainWindow::save()
     ((Canvas*)ui->tabWidget->currentWidget())->render(&painter, rect, rect);
     painter.end();
 
-    QString fileName = QFileDialog::getSaveFileName(0, "Save Dialog", "", tr("Images (*.bmp *.jpg *.png)"));
-    QStringList list = fileName.split(".");
-    const char *format = list.at(list.size() - 1).toStdString().c_str();
-
-    QString saveName;
+    QString fileName = QFileDialog::getSaveFileName(this, "Save Dialog", currentDirSave, tr("Images (*.bmp *.jpg *.png)"));
+    QStringList list = fileName.split("/");
     for(int i = 0; i < list.size() - 1; ++i)
     {
-        saveName += list.at(i);
+        currentDirSave += list.at(i) + "/";
+    }
+    qDebug() << "Save: " << fileName;
+    QStringList listFormat = fileName.split(".");
+    const char *format = listFormat.at(listFormat.size() - 1).toStdString().c_str();
+
+    QString saveName;
+    for(int i = 0; i < listFormat.size() - 1; ++i)
+    {
+        saveName += listFormat.at(i);
     }
 
     pixmap.save(fileName, format);
+    ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), list.at(list.size() - 1));
 }

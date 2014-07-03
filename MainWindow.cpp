@@ -122,7 +122,11 @@ void MainWindow::on_bDrawText_clicked()
                                              "", &nameOK);
         if(nameOK)
         {
-            ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawText(text));
+            DrawText *text = new DrawText(text);
+            text->setPos(50, 50);
+            text->setPen(QPen(QColor(Qt::red), 5));
+            text->setScale(5);
+            ((Canvas*)ui->tabWidget->currentWidget())->addShape(text);
         }
     }
 }
@@ -148,7 +152,7 @@ void MainWindow::on_bPenWidth_clicked()
 
 void MainWindow::open()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, "Open Dialog", currentDirOpen, tr("Images (*.bmp *.jpg *.png)"));    
+    QString fileName = QFileDialog::getOpenFileName(this, "Open Dialog", currentDirOpen, tr("Images (*.bmp *.jpg *.png)"));
     QPixmap pixmap(fileName);
     if(!fileName.isEmpty())
     {

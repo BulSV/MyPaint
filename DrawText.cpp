@@ -29,5 +29,25 @@ void DrawText::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 void DrawText::draw(qreal x1, qreal y1, qreal x2, qreal y2)
 {
     itsText->setPen(pen());
-    itsText->setPos(x2, y2);
+    itsText->setFlags(QGraphicsItem::ItemIsFocusable
+                      | QGraphicsItem::ItemIsMovable
+                      | QGraphicsItem::ItemIsSelectable);
+    itsText->setFocus();
+    itsText->setRotation(45);
+    itsText->setTransformOriginPoint(x2, y2);
+}
+
+void DrawText::mousePressEvent(QGraphicsSceneMouseEvent *pe)
+{
+
+}
+
+void DrawText::mouseMoveEvent(QGraphicsSceneMouseEvent *pe)
+{
+
+}
+
+void DrawText::mouseReleaseEvent(QGraphicsSceneMouseEvent *pe)
+{
+
 }

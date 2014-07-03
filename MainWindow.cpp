@@ -121,12 +121,8 @@ void MainWindow::on_bDrawText_clicked()
                                              tr("Text:"), QLineEdit::Normal,
                                              "", &nameOK);
         if(nameOK)
-        {
-            DrawText *text = new DrawText(text);
-            text->setPos(50, 50);
-            text->setPen(QPen(QColor(Qt::red), 5));
-            text->setScale(5);
-            ((Canvas*)ui->tabWidget->currentWidget())->addShape(text);
+        {            
+            ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawText(text));
         }
     }
 }

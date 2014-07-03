@@ -11,6 +11,7 @@ public:
     explicit Scene(QObject *parent = 0);
     virtual ~Scene();
     void draw(DrawShape *shape, qreal x1, qreal y1, qreal x2,qreal y2);
+    DrawShape *currentShape();
 };
 
 #endif // SCENE_H

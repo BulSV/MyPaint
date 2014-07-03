@@ -7,17 +7,20 @@
 class DrawText : public DrawShape
 {
     QGraphicsSimpleTextItem *itsText;
+    qreal itsX;
+    qreal itsY;
+
+    qreal getItsX() const;
+    void setItsX(const qreal &value);
+    qreal getItsY() const;
+    void setItsY(const qreal &value);
 public:
     explicit DrawText(DrawShape *parent = 0);
     explicit DrawText(QString &text, DrawShape *parent = 0);
     virtual ~DrawText();
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-    virtual void draw(qreal x1, qreal y1, qreal x2, qreal y2);
-protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *pe);
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *pe);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *pe);
+    virtual void draw(qreal x1, qreal y1, qreal x2, qreal y2);    
 };
 
 #endif // DRAWTEXT_H

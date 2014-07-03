@@ -55,14 +55,14 @@ void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
     pen.setCapStyle(Qt::SquareCap);
     pen.setJoinStyle(Qt::MiterJoin);
 
-    qreal widthShadow = 5;
-    QPen penShadow(QBrush(Qt::black), widthShadow);
+    qreal widthShadow = 7;
+    QPen penShadow(QBrush(Qt::lightGray), widthShadow);
     penShadow.setCapStyle(Qt::SquareCap);
     penShadow.setJoinStyle(Qt::RoundJoin);
 
-    itsScene->addRect(x, y, w , h, pen);
     itsScene->addLine(x+ w + (widthShadow - width)/2, y + widthShadow, x + w + (widthShadow - width)/2, y + h + widthShadow/2, penShadow);
     itsScene->addLine(x + widthShadow, y + h + (widthShadow - width)/2, x + w + widthShadow/2, y + h + (widthShadow - width)/2, penShadow);
+    itsScene->addRect(x, y, w , h, pen);
 }
 
 DrawShape *Canvas::currentShape()
@@ -110,20 +110,15 @@ void Canvas::mousePressEvent(QMouseEvent *pe)
     if(pe->buttons() & Qt::LeftButton)
     {
         QPointF point = mapToScene(pe->pos());
+        itsStartX = point.x();
+        itsStartY = point.y();
         if(point.x() > sceneRect().topLeft().x()
                 && point.y() > sceneRect().topLeft().y()
                 && point.x() < sceneRect().bottomRight().x()
                 && point.y() < sceneRect().bottomRight().y())
-        {
-            itsStartX = point.x();
-            itsStartY = point.y();
+        {            
             itsIsLeftButtonPressed = true;
-        }
-        else
-        {
-            itsStartX = point.x();
-            itsStartY = point.y();
-        }
+        }        
     }
 }
 
@@ -132,6 +127,7 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
     if(pe->buttons() & Qt::LeftButton)
     {
         QPointF point = mapToScene(pe->pos());
+
         if(point.x() > sceneRect().topLeft().x()
                 && point.y() > sceneRect().topLeft().y()
                 && point.x() < sceneRect().bottomRight().x()
@@ -151,14 +147,23 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
 
             if(itsIsShapeSet)
             {
-                ((DrawShape*)itsScene->items().first())->setPen(itsPen);
-                ((Scene*)itsScene)->draw((DrawShape*)itsScene->items().first(), startX(), startY(), endX(), endY());
+                itsScene->currentShape()->setPen(itsPen);
+                itsScene->currentShape()->draw(startX(), startY(), endX(), endY());
+//                itsScene->currentShape()->setPos(endX(), endY());
                 itsScene->update();
             }
 
             emit painting(startX(), startY(), endX(), endY());
         }
     }
+//    if(pe->buttons() & Qt::RightButton)
+//    {
+////        qDebug() << itsIsShapeSet;
+////        if(itsIsShapeSet){
+//        QPointF point = mapToScene(pe->pos());
+//        ((DrawShape*)itsScene->items().first())->setPos(point.x(), point.y());
+//        itsScene->update();//}
+//    }
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *pe)

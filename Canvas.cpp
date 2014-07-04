@@ -41,7 +41,7 @@ int Canvas::endY() const
 }
 
 void Canvas::addShape(DrawShape *shape)
-{        
+{
     itsScene->addItem(shape);
     itsIsShapeSet = true;
 }
@@ -116,9 +116,9 @@ void Canvas::mousePressEvent(QMouseEvent *pe)
                 && point.y() > sceneRect().topLeft().y()
                 && point.x() < sceneRect().bottomRight().x()
                 && point.y() < sceneRect().bottomRight().y())
-        {            
+        {
             itsIsLeftButtonPressed = true;
-        }        
+        }
     }
 }
 
@@ -149,7 +149,6 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
             {
                 itsScene->currentShape()->setPen(itsPen);
                 itsScene->currentShape()->draw(startX(), startY(), endX(), endY());
-//                itsScene->currentShape()->setPos(endX(), endY());
                 itsScene->update();
             }
 

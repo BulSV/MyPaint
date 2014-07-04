@@ -8,8 +8,10 @@
 DrawText::DrawText(DrawShape *parent):
     DrawShape(QPen(), QBrush(), parent)
   , itsText(new QGraphicsSimpleTextItem())
+  , itsFont(QFont())
 {
     setVisible(false);
+    setBrush(QBrush(QColor(Qt::black)));
 }
 
 DrawText::DrawText(QString &text, const QPen &pen, const QBrush &brush, DrawShape *parent) :
@@ -17,6 +19,7 @@ DrawText::DrawText(QString &text, const QPen &pen, const QBrush &brush, DrawShap
   , itsText(new QGraphicsSimpleTextItem(text))
 {
     setVisible(false);
+    setBrush(QBrush(QColor(Qt::black)));
 }
 
 DrawText::~DrawText()
@@ -38,13 +41,22 @@ void DrawText::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
 void DrawText::draw(qreal x1, qreal y1, qreal x2, qreal y2)
 {
     ((Scene*)scene())->currentShape()->setPos(x2, y2);
-//    itsText->setPen(pen());
-    itsText->setBrush(QBrush(pen().color()));
+    itsText->setBrush(brush());
     itsText->setFlags(QGraphicsItem::ItemIsMovable);
-    itsText->setFont(QFont("Arial", 50));//, 3, true));
+    itsText->setFont(font());
 
     if(!isVisible())
     {
         setVisible(true);
     }
+}
+
+void DrawText::setFont(const QFont &font)
+{
+    itsFont = font;
+}
+
+QFont DrawText::font() const
+{
+    return itsFont;
 }

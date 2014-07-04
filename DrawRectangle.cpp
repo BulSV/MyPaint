@@ -30,5 +30,6 @@ void DrawRectangle::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 void DrawRectangle::draw(qreal x1, qreal y1, qreal x2, qreal y2)
 {
     itsRect->setPen(pen());
+    itsRect->setBrush(brush());
     itsRect->setRect(x1, y1, x2 - x1, y2 - y1);
 }

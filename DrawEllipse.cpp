@@ -30,5 +30,6 @@ void DrawEllipse::paint(QPainter *painter, const QStyleOptionGraphicsItem *optio
 void DrawEllipse::draw(qreal x1, qreal y1, qreal x2, qreal y2)
 {
     itsEllipse->setPen(pen());
+    itsEllipse->setBrush(brush());
     itsEllipse->setRect(x1, y1, x2 - x1, y2 - y1);
 }

@@ -11,7 +11,7 @@ class DrawText : public DrawShape
     QFont itsFont;
 public:
     explicit DrawText(DrawShape *parent = 0);
-    explicit DrawText(QString &text, const QPen &pen = QPen(), const QBrush &brush = QBrush(), DrawShape *parent = 0);
+    explicit DrawText(QString &text, const QFont &font = QFont(), const QBrush &brush = QBrush(QColor(Qt::black)), DrawShape *parent = 0);
     virtual ~DrawText();
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);

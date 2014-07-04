@@ -14,12 +14,13 @@ DrawText::DrawText(DrawShape *parent):
     setBrush(QBrush(QColor(Qt::black)));
 }
 
-DrawText::DrawText(QString &text, const QPen &pen, const QBrush &brush, DrawShape *parent) :
-    DrawShape(pen, brush, parent)
+DrawText::DrawText(QString &text, const QFont &font, const QBrush &brush, DrawShape *parent) :
+    DrawShape(QPen(), brush, parent)
   , itsText(new QGraphicsSimpleTextItem(text))
+  , itsFont(font)
 {
     setVisible(false);
-    setBrush(QBrush(QColor(Qt::black)));
+    setBrush(brush);
 }
 
 DrawText::~DrawText()

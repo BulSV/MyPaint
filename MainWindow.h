@@ -51,6 +51,7 @@ private slots:
     void on_bPenWidth_clicked();
     void open();
     void save();    
+    void closeTab(int tabIndex);
 };
 
 #endif // MAINWINDOW_H

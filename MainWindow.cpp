@@ -208,3 +208,8 @@ void MainWindow::save()
         ui->tabWidget->setTabText(ui->tabWidget->currentIndex(), list.at(list.size() - 1));
     }
 }
+
+void MainWindow::closeTab(int tabIndex)
+{
+    ui->tabWidget->removeTab(tabIndex);
+}

@@ -47,7 +47,8 @@ SOURCES += main.cpp\
     Pixmap.cpp \
     Rectangle.cpp \
     AbstractShape.cpp \
-    SimpleText.cpp
+    SimpleText.cpp \
+    Rubber.cpp
 
 HEADERS  += MainWindow.h \
     Canvas.h \
@@ -59,6 +60,7 @@ HEADERS  += MainWindow.h \
     Pixmap.h \
     Rectangle.h \
     AbstractShape.h \
-    SimpleText.h
+    SimpleText.h \
+    Rubber.h
 
 FORMS    += MainWindow.ui

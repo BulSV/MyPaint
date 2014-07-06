@@ -40,6 +40,7 @@ public:
     QAction *actionAbout_Qt;
     QAction *actionShowDrawingTools;
     QAction *actionHideDrawingTools;
+    QAction *actionClose;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QTabWidget *tabWidget;
@@ -82,6 +83,8 @@ public:
         actionShowDrawingTools->setObjectName(QStringLiteral("actionShowDrawingTools"));
         actionHideDrawingTools = new QAction(MainWindow);
         actionHideDrawingTools->setObjectName(QStringLiteral("actionHideDrawingTools"));
+        actionClose = new QAction(MainWindow);
+        actionClose->setObjectName(QStringLiteral("actionClose"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -111,7 +114,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 529, 20));
+        menuBar->setGeometry(QRect(0, 0, 529, 25));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHelp = new QMenu(menuBar);
@@ -126,6 +129,7 @@ public:
         drawingTools->setObjectName(QStringLiteral("drawingTools"));
         dockWidgetContents_2 = new QWidget();
         dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
+        dockWidgetContents_2->setLayoutDirection(Qt::LeftToRight);
         verticalLayout = new QVBoxLayout(dockWidgetContents_2);
         verticalLayout->setSpacing(6);
         verticalLayout->setContentsMargins(11, 11, 11, 11);
@@ -181,6 +185,7 @@ public:
         menuFile->addAction(actionOpen);
         menuFile->addAction(actionSave);
         menuFile->addSeparator();
+        menuFile->addAction(actionClose);
         menuFile->addAction(actionExit);
         menuHelp->addAction(actionAbout_Qt);
         menuView->addAction(actionShowDrawingTools);
@@ -195,6 +200,7 @@ public:
         QObject::connect(actionOpen, SIGNAL(triggered()), MainWindow, SLOT(open()));
         QObject::connect(actionSave, SIGNAL(triggered()), MainWindow, SLOT(save()));
         QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
+        QObject::connect(tabWidget, SIGNAL(tabCloseRequested(int)), MainWindow, SLOT(closeTab(int)));
 
         tabWidget->setCurrentIndex(0);
 
@@ -216,6 +222,7 @@ public:
         actionAbout_Qt->setText(QApplication::translate("MainWindow", "About Qt", 0));
         actionShowDrawingTools->setText(QApplication::translate("MainWindow", "Show Drawing Tools", 0));
         actionHideDrawingTools->setText(QApplication::translate("MainWindow", "Hide Drawing Tools", 0));
+        actionClose->setText(QApplication::translate("MainWindow", "Close", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "New", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));

@@ -176,7 +176,7 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
 
             emit painting(startX(), startY(), endX(), endY());
         }
-    }
+    }    
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *pe)

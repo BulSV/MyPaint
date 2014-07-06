@@ -2,7 +2,7 @@
 #define SCENE_H
 
 #include <QGraphicsScene>
-#include "DrawShape.h"
+#include "AbstractShape.h"
 
 class Scene : public QGraphicsScene
 {
@@ -10,8 +10,8 @@ class Scene : public QGraphicsScene
 public:
     explicit Scene(QObject *parent = 0);
     virtual ~Scene();
-    void draw(DrawShape *shape, qreal x1, qreal y1, qreal x2,qreal y2);
-    DrawShape *currentShape();
+    void draw(AbstractShape *shape, qreal x1, qreal y1, qreal x2,qreal y2);
+    AbstractShape *currentShape();
 };
 
 #endif // SCENE_H

@@ -1,20 +1,20 @@
-#ifndef DRAWELLIPSE_H
-#define DRAWELLIPSE_H
+#ifndef ELLIPSE_H
+#define ELLIPSE_H
 
 #include <QGraphicsEllipseItem>
-#include "DrawShape.h"
+#include "AbstractShape.h"
 
-class DrawEllipse : public DrawShape
+class Ellipse : public AbstractShape
 {
     QGraphicsEllipseItem *itsEllipse;
 public:
     enum {Type = UserType + 1};
-    explicit DrawEllipse(const QPen &pen = QPen(), const QBrush &brush = QBrush(), DrawShape *parent = 0);
-    virtual ~DrawEllipse();
+    explicit Ellipse(const QPen &pen = QPen(), const QBrush &brush = QBrush(), AbstractShape *parent = 0);
+    virtual ~Ellipse();
     int type() const;
     virtual QRectF boundingRect() const;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     virtual void draw(qreal x1, qreal y1, qreal x2, qreal y2);
 };
 
-#endif // DRAWELLIPSE_H
+#endif // ELLIPSE_H

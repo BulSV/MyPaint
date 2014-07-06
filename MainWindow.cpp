@@ -37,6 +37,11 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete lStartX;
+    delete lStartY;
+    delete lEndX;
+    delete lEndY;
+    delete frmXYLineSeparator;
 }
 
 void MainWindow::setStartXY_EndXY(int startX, int startY, int endX, int endY)
@@ -92,7 +97,7 @@ void MainWindow::on_bDrawLine_clicked()
 {
     if(ui->tabWidget->currentWidget())
     {
-        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawLine());
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new Line());
     }
 }
 
@@ -100,7 +105,7 @@ void MainWindow::on_bDrawRectangle_clicked()
 {
     if(ui->tabWidget->currentWidget())
     {
-        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawRectangle());
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new Rectangle());
     }
 }
 
@@ -108,7 +113,7 @@ void MainWindow::on_bDrawEllipse_clicked()
 {
     if(ui->tabWidget->currentWidget())
     {
-        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawEllipse());
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new Ellipse());
     }
 }
 
@@ -116,14 +121,14 @@ void MainWindow::on_bDrawText_clicked()
 {
     if(ui->tabWidget->currentWidget())
     {
-        bool nameOK;
-        QString text = QInputDialog::getText(this, tr("Enter Text"),
-                                             tr("Text:"), QLineEdit::Normal,
-                                             "", &nameOK);
-        if(nameOK)
-        {            
-            ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawText(text));
-        }
+//        bool nameOK;
+//        QString text = QInputDialog::getText(this, tr("Enter Text"),
+//                                             tr("Text:"), QLineEdit::Normal,
+//                                             "", &nameOK);
+//        if(nameOK)                
+//        {
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new SimpleTextDialog());
+//        }       
     }
 }
 
@@ -168,7 +173,7 @@ void MainWindow::open()
         }
         ((Canvas*)ui->tabWidget->currentWidget())->clear();
         ((Canvas*)ui->tabWidget->currentWidget())->setSceneRect(0, 0, pixmap.size().width(), pixmap.size().height());
-        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new DrawPixmap(pixmap));
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new Pixmap(pixmap));
     }
 }
 

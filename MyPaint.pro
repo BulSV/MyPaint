@@ -39,22 +39,26 @@ else {
 SOURCES += main.cpp\
         MainWindow.cpp \
     Canvas.cpp \
-    DrawShape.cpp \
-    DrawLine.cpp \
-    DrawRectangle.cpp \
-    DrawEllipse.cpp \
     Scene.cpp \
-    DrawText.cpp \
-    DrawPixmap.cpp
+    SimpleTextDialog.cpp \
+    SimpleTextConfigDialog.cpp \
+    Ellipse.cpp \
+    Line.cpp \
+    Pixmap.cpp \
+    Rectangle.cpp \
+    AbstractShape.cpp \
+    SimpleText.cpp
 
 HEADERS  += MainWindow.h \
     Canvas.h \
-    DrawShape.h \
-    DrawLine.h \
-    DrawRectangle.h \
-    DrawEllipse.h \
     Scene.h \
-    DrawText.h \
-    DrawPixmap.h
+    SimpleTextDialog.h \
+    SimpleTextConfigDialog.h \
+    Ellipse.h \
+    Line.h \
+    Pixmap.h \
+    Rectangle.h \
+    AbstractShape.h \
+    SimpleText.h
 
 FORMS    += MainWindow.ui

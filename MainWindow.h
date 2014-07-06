@@ -13,11 +13,11 @@
 #include <QColorDialog>
 #include <QFileDialog>
 #include "Canvas.h"
-#include "DrawLine.h"
-#include "DrawRectangle.h"
-#include "DrawEllipse.h"
-#include "DrawText.h"
-#include "DrawPixmap.h"
+#include "Line.h"
+#include "Rectangle.h"
+#include "Ellipse.h"
+#include "SimpleTextDialog.h"
+#include "Pixmap.h"
 
 namespace Ui {
 class MainWindow;
@@ -40,7 +40,6 @@ private:
     QFrame *frmXYLineSeparator;
     QString currentDirOpen;
     QString currentDirSave;
-//    Canvas *canvas;
 private slots:
     void setStartXY_EndXY(int startX, int startY, int endX, int endY);
     void newImage();
@@ -51,7 +50,7 @@ private slots:
     void on_bPenColor_clicked();
     void on_bPenWidth_clicked();
     void open();
-    void save();
+    void save();    
 };
 
 #endif // MAINWINDOW_H

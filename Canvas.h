@@ -9,7 +9,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsItem>
-#include "DrawShape.h"
+#include "AbstractShape.h"
 #include "Scene.h"
 
 class Canvas : public QGraphicsView
@@ -22,9 +22,9 @@ public:
     int startY() const;
     int endX() const;
     int endY() const;
-    void addShape(DrawShape *shape);
+    void addShape(AbstractShape *shape);
     void setSceneRect(qreal x, qreal y, qreal w, qreal h);
-    DrawShape *currentShape();
+    AbstractShape *currentShape();
     void setColor(QColor color);
     QColor color() const;
     void setWidth(int width);

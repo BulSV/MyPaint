@@ -45,6 +45,7 @@ Makefile*
 *-build-*
 object_script*
 *.autosave
+*.patch
 
 # Don't needed Java files
 *.class

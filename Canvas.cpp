@@ -40,10 +40,10 @@ int Canvas::endY() const
     return itsEndY;
 }
 
-void Canvas::addShape(DrawShape *shape)
+void Canvas::addShape(AbstractShape *shape)
 {
     itsScene->addItem(shape);
-    itsIsShapeSet = true;
+    itsIsShapeSet = true;    
 }
 
 void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
@@ -65,9 +65,9 @@ void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
     itsScene->addRect(x, y, w , h, pen);
 }
 
-DrawShape *Canvas::currentShape()
+AbstractShape *Canvas::currentShape()
 {
-    return (DrawShape*)itsScene->items().first();
+    return (AbstractShape*)itsScene->items().first();
 }
 
 void Canvas::setColor(QColor color)
@@ -155,14 +155,6 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
             emit painting(startX(), startY(), endX(), endY());
         }
     }
-//    if(pe->buttons() & Qt::RightButton)
-//    {
-////        qDebug() << itsIsShapeSet;
-////        if(itsIsShapeSet){
-//        QPointF point = mapToScene(pe->pos());
-//        ((DrawShape*)itsScene->items().first())->setPos(point.x(), point.y());
-//        itsScene->update();//}
-//    }
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *pe)

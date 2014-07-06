@@ -43,7 +43,8 @@ int Canvas::endY() const
 void Canvas::addShape(AbstractShape *shape)
 {
     itsScene->addItem(shape);
-    itsIsShapeSet = true;    
+    itsIsShapeSet = true;
+    qDebug() << "Added Shape #" << itsScene->items().size();
 }
 
 void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
@@ -60,9 +61,30 @@ void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
     penShadow.setCapStyle(Qt::SquareCap);
     penShadow.setJoinStyle(Qt::RoundJoin);
 
-    itsScene->addLine(x+ w + (widthShadow - width)/2, y + widthShadow, x + w + (widthShadow - width)/2, y + h + widthShadow/2, penShadow);
-    itsScene->addLine(x + widthShadow, y + h + (widthShadow - width)/2, x + w + widthShadow/2, y + h + (widthShadow - width)/2, penShadow);
-    itsScene->addRect(x, y, w , h, pen);
+    QGraphicsItemGroup *group = new QGraphicsItemGroup();
+
+    QGraphicsLineItem *rightLine =
+            new QGraphicsLineItem(x+ w + (widthShadow - width)/2,
+                                  y + widthShadow,
+                                  x + w + (widthShadow - width)/2,
+                                  y + h + widthShadow/2);
+    rightLine->setPen(penShadow);
+
+    QGraphicsLineItem *bottomLine =
+            new QGraphicsLineItem(x + widthShadow,
+                                  y + h + (widthShadow - width)/2,
+                                  x + w + widthShadow/2,
+                                  y + h + (widthShadow - width)/2);
+    bottomLine->setPen(penShadow);
+
+    QGraphicsRectItem *rect = new QGraphicsRectItem(x, y, w , h);
+    rect->setPen(pen);
+
+    group->addToGroup(rightLine);
+    group->addToGroup(bottomLine);
+    group->addToGroup(rect);
+
+    itsScene->addItem(group);
 }
 
 AbstractShape *Canvas::currentShape()

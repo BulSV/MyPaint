@@ -121,14 +121,7 @@ void MainWindow::on_bDrawText_clicked()
 {
     if(ui->tabWidget->currentWidget())
     {
-//        bool nameOK;
-//        QString text = QInputDialog::getText(this, tr("Enter Text"),
-//                                             tr("Text:"), QLineEdit::Normal,
-//                                             "", &nameOK);
-//        if(nameOK)                
-//        {
         ((Canvas*)ui->tabWidget->currentWidget())->addShape(new SimpleTextDialog());
-//        }       
     }
 }
 

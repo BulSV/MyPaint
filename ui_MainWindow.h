@@ -127,6 +127,8 @@ public:
         MainWindow->setStatusBar(statusBar);
         drawingTools = new QDockWidget(MainWindow);
         drawingTools->setObjectName(QStringLiteral("drawingTools"));
+        drawingTools->setFeatures(QDockWidget::DockWidgetFeatureMask);
+        drawingTools->setAllowedAreas(Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea);
         dockWidgetContents_2 = new QWidget();
         dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
         dockWidgetContents_2->setLayoutDirection(Qt::LeftToRight);
@@ -231,6 +233,7 @@ public:
 #ifndef QT_NO_TOOLTIP
         drawingTools->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Drawing Tools</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP
+        drawingTools->setWindowTitle(QApplication::translate("MainWindow", "Drawing Tools", 0));
 #ifndef QT_NO_TOOLTIP
         bDrawLine->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Draw Line</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP

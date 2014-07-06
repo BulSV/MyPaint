@@ -92,6 +92,15 @@
    <property name="toolTip">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Drawing Tools&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFeatureMask</set>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Drawing Tools</string>
+   </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
    </attribute>

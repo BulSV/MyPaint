@@ -40,6 +40,7 @@ private:
     int itsEndY;
     bool itsIsLeftButtonPressed;
     bool itsIsShapeSet;
+    bool itsIsShapeDrawn;
     Scene *itsScene;
     QPen itsPen;
 protected:

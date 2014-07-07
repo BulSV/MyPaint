@@ -10,6 +10,7 @@ Canvas::Canvas(QGraphicsView *parent) :
   , itsEndY(0)
   , itsIsLeftButtonPressed(false)
   , itsIsShapeSet(false)
+  , itsIsShapeDrawn(true)
   , itsScene(new Scene())
   , itsPen(QPen())
 {
@@ -42,7 +43,18 @@ int Canvas::endY() const
 
 void Canvas::addShape(AbstractShape *shape)
 {
+    // Delete undrawn shape
+    if(!itsIsShapeDrawn)
+    {
+        qDebug() << "Count of shapes is" << itsScene->items().size();
+        qDebug() << "Removing undrawn shape";
+        itsScene->removeItem(currentShape());
+        qDebug() << "Count of shapes is" << itsScene->items().size();
+        qDebug() << "items:" << itsScene->items();
+    }
+
     itsScene->addItem(shape);
+    itsIsShapeDrawn = false;
     itsIsShapeSet = true;
     qDebug() << "Added Shape #" << itsScene->items().size();
 }
@@ -183,6 +195,7 @@ void Canvas::mouseReleaseEvent(QMouseEvent *pe)
 {
     if(itsIsLeftButtonPressed)
     {
+        itsIsShapeDrawn = true;
         itsIsLeftButtonPressed = false;
         itsIsShapeSet = false;
     }

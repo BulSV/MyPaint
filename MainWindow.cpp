@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tabWidget->removeTab(0);
 
     connect(ui->actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-    connect((Canvas*)ui->tabWidget->currentWidget(), SIGNAL(painting(int,int,int,int)), this, SLOT(setStartXY_EndXY(int,int,int,int)));
+//    connect((Canvas*)ui->tabWidget->currentWidget(), SIGNAL(painting(int,int,int,int)), this, SLOT(setStartXY_EndXY(int,int,int,int)));
 }
 
 MainWindow::~MainWindow()
@@ -48,8 +48,8 @@ void MainWindow::setStartXY_EndXY(int startX, int startY, int endX, int endY)
 {
     lStartX->setText(tr("X = ") + QString::number(startX));
     lStartY->setText(tr("Y = ") + QString::number(startY));
-    lEndX->setText(tr("X = ") + QString::number(endX));
-    lEndY->setText(tr("Y = ") + QString::number(endY));
+    lEndX->setText(tr("dX = ") + QString::number(endX - startX));
+    lEndY->setText(tr("dY = ") + QString::number(endY - startY));
 }
 
 void MainWindow::newImage()
@@ -90,6 +90,8 @@ void MainWindow::newImage()
         canvas->setSceneRect(0, 0, 250, 250);
     }
     canvas->setBackgroundBrush(QBrush(QColor(255, 255, 255)));
+
+    connect((Canvas*)ui->tabWidget->currentWidget(), SIGNAL(painting(int,int,int,int)), this, SLOT(setStartXY_EndXY(int,int,int,int)));
 }
 
 

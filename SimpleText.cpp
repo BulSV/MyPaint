@@ -53,7 +53,7 @@ void SimpleText::draw(qreal x1, qreal y1, qreal x2, qreal y2)
 }
 
 void SimpleText::setFont(const QFont &font)
-{    
+{
     itsTextItem->setFont(font);
 }
 

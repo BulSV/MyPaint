@@ -1,5 +1,7 @@
 #include "Line.h"
 
+#include <QDebug>
+
 Line::Line(const QPen &pen, const QBrush &brush, AbstractShape *parent) :
     AbstractShape(pen, brush, parent)
   , itsLine(new QGraphicsLineItem())

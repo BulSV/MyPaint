@@ -1,5 +1,7 @@
 #include "AbstractShape.h"
 
+#include <QDebug>
+
 AbstractShape::AbstractShape(const QPen &pen, const QBrush &brush, QGraphicsItem *parent) :
     QGraphicsItem(parent)
   , itsPen(pen)

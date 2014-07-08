@@ -46,17 +46,15 @@ void Canvas::addShape(AbstractShape *shape)
     // Delete undrawn shape
     if(!itsIsShapeDrawn)
     {
-        qDebug() << "Count of shapes is" << itsScene->items().size();
-        qDebug() << "Removing undrawn shape";
-        itsScene->removeItem(currentShape());
-        qDebug() << "Count of shapes is" << itsScene->items().size();
-        qDebug() << "items:" << itsScene->items();
+        AbstractShape *undrawnShape = currentShape();
+        itsScene->removeItem(undrawnShape);
+        delete undrawnShape;
+        undrawnShape = 0;
     }
 
     itsScene->addItem(shape);
     itsIsShapeDrawn = false;
     itsIsShapeSet = true;
-    qDebug() << "Added Shape #" << itsScene->items().size();
 }
 
 void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
@@ -188,7 +186,7 @@ void Canvas::mouseMoveEvent(QMouseEvent *pe)
 
             emit painting(startX(), startY(), endX(), endY());
         }
-    }    
+    }
 }
 
 void Canvas::mouseReleaseEvent(QMouseEvent *pe)

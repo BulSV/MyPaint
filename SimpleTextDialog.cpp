@@ -8,7 +8,7 @@ SimpleTextDialog::SimpleTextDialog(SimpleText *parent) :
 {
     setFlags(QGraphicsItem::ItemIsMovable);
     simpleTextConfigDialog = new SimpleTextConfigDialog();
-    simpleTextConfigDialog->show();    
+    simpleTextConfigDialog->show();
 }
 
 SimpleTextDialog::~SimpleTextDialog()
@@ -23,10 +23,6 @@ void SimpleTextDialog::draw(qreal x1, qreal y1, qreal x2, qreal y2)
     setText(simpleTextConfigDialog->text());
     setBrush(QBrush(simpleTextConfigDialog->color()));
     setFont(simpleTextConfigDialog->font());
-
-    qDebug() << "text:"<< text();
-    qDebug() << "color:" << brush();
-    qDebug() << "font:" << font();
 
     if(!isVisible())
     {

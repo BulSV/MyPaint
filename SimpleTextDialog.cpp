@@ -8,6 +8,7 @@ SimpleTextDialog::SimpleTextDialog(SimpleText *parent) :
 {
     setFlags(QGraphicsItem::ItemIsMovable);
     simpleTextConfigDialog = new SimpleTextConfigDialog();
+    simpleTextConfigDialog->setWindowTitle(QObject::tr("Configure The Text"));
     simpleTextConfigDialog->show();
 }
 

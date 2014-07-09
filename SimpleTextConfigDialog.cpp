@@ -10,6 +10,7 @@ void SimpleTextConfigDialog::createWidget()
     grid->addWidget(bOk, 2, 0);
     grid->addWidget(bCancel, 2, 1);
     setLayout(grid);
+    setModal(true);
 }
 
 void SimpleTextConfigDialog::setFont(const QFont &font)
@@ -60,7 +61,7 @@ void SimpleTextConfigDialog::setText(const QString &text)
 }
 
 SimpleTextConfigDialog::SimpleTextConfigDialog(QWidget *parent) :
-    QWidget(parent)
+    QDialog(parent)//QWidget(parent)
   , lText(new QLabel(tr("Text"), this))
   , leText(new QLineEdit(this))
   , bColor(new QPushButton(tr("Color"), this))

@@ -1,7 +1,8 @@
 #ifndef SIMPLETEXTCONFIGDIALOG_H
 #define SIMPLETEXTCONFIGDIALOG_H
 
-#include <QWidget>
+//#include <QWidget>
+#include <QDialog>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
@@ -9,7 +10,7 @@
 #include <QColorDialog>
 #include <QGridLayout>
 
-class SimpleTextConfigDialog : public QWidget
+class SimpleTextConfigDialog : public QDialog//QWidget
 {
     Q_OBJECT
     QLabel *lText;

@@ -31,7 +31,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tabWidget->removeTab(0);
 
     connect(ui->actionAbout_Qt, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
-//    connect((Canvas*)ui->tabWidget->currentWidget(), SIGNAL(painting(int,int,int,int)), this, SLOT(setStartXY_EndXY(int,int,int,int)));
 }
 
 MainWindow::~MainWindow()
@@ -46,8 +45,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::setStartXY_EndXY(int startX, int startY, int endX, int endY)
 {
-    lStartX->setText(tr("X = ") + QString::number(startX));
-    lStartY->setText(tr("Y = ") + QString::number(startY));
+    // current coordinates
+    lStartX->setText(tr("X = ") + QString::number(endX));
+    lStartY->setText(tr("Y = ") + QString::number(endY));
+    // offset coordinates
     lEndX->setText(tr("dX = ") + QString::number(endX - startX));
     lEndY->setText(tr("dY = ") + QString::number(endY - startY));
 }

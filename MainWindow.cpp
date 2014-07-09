@@ -43,6 +43,28 @@ MainWindow::~MainWindow()
     delete frmXYLineSeparator;
 }
 
+void MainWindow::drawSameShapeType()
+{
+    ((Canvas*)ui->tabWidget->currentWidget())->addShape(lastDrawnShape());
+}
+
+AbstractShape *MainWindow::lastDrawnShape()
+{
+    switch(lastDrawnShapeType)
+    {
+    case LineType: return new Line();
+        break;
+    case RectangleType: return new Rectangle();
+        break;
+    case EllipseType: return new Ellipse();
+        break;
+    case SimpleTextType: return new SimpleTextDialog();
+        break;
+    default: return 0;
+        break;
+    }
+}
+
 void MainWindow::setStartXY_EndXY(int startX, int startY, int endX, int endY)
 {
     // current coordinates
@@ -56,6 +78,7 @@ void MainWindow::setStartXY_EndXY(int startX, int startY, int endX, int endY)
 void MainWindow::newImage()
 {
     Canvas *canvas = new Canvas();
+    canvas->registerObserver(this);
 
     bool nameOK;
     QString imageName = QInputDialog::getText(this, tr("Enter Name"),
@@ -100,7 +123,8 @@ void MainWindow::on_bDrawLine_clicked()
 {
     if(ui->tabWidget->currentWidget())
     {
-        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new Line());
+        lastDrawnShapeType = LineType;
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(lastDrawnShape());
     }
 }
 
@@ -108,7 +132,8 @@ void MainWindow::on_bDrawRectangle_clicked()
 {
     if(ui->tabWidget->currentWidget())
     {
-        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new Rectangle());
+        lastDrawnShapeType = RectangleType;
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(lastDrawnShape());
     }
 }
 
@@ -116,7 +141,8 @@ void MainWindow::on_bDrawEllipse_clicked()
 {
     if(ui->tabWidget->currentWidget())
     {
-        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new Ellipse());
+        lastDrawnShapeType = EllipseType;
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(lastDrawnShape());
     }
 }
 
@@ -124,7 +150,8 @@ void MainWindow::on_bDrawText_clicked()
 {
     if(ui->tabWidget->currentWidget())
     {
-        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new SimpleTextDialog());
+        lastDrawnShapeType = SimpleTextType;
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(lastDrawnShape());
     }
 }
 

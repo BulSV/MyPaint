@@ -18,18 +18,20 @@
 #include "Ellipse.h"
 #include "SimpleTextDialog.h"
 #include "Pixmap.h"
+#include "CanvasObserver.h"
 
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow
+class MainWindow : public QMainWindow, public CanvasObserver
 {
     Q_OBJECT
 
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    virtual void drawSameShapeType();
 
 private:
     Ui::MainWindow *ui;
@@ -40,6 +42,14 @@ private:
     QFrame *frmXYLineSeparator;
     QString currentDirOpen;
     QString currentDirSave;
+    enum ShapeTypes
+    {
+        LineType, RectangleType, EllipseType, SimpleTextType
+    };
+
+    ShapeTypes lastDrawnShapeType;
+
+    AbstractShape *lastDrawnShape();
 private slots:
     void setStartXY_EndXY(int startX, int startY, int endX, int endY);
     void newImage();
@@ -50,7 +60,7 @@ private slots:
     void on_bPenColor_clicked();
     void on_bPenWidth_clicked();
     void open();
-    void save();    
+    void save();
     void closeTab(int tabIndex);
 };
 

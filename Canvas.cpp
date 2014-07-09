@@ -137,6 +137,27 @@ QRectF Canvas::drawRect() const
     return rect;
 }
 
+void Canvas::registerObserver(CanvasObserver *canvasObserver)
+{
+    itsCanvasObservers.append(canvasObserver);
+}
+
+void Canvas::removeObserver(CanvasObserver *canvasObserver)
+{
+    CanvasObserver *tempCanvasObserver = canvasObserver;
+    itsCanvasObservers.removeOne(canvasObserver);
+    delete tempCanvasObserver;
+    tempCanvasObserver = 0;
+}
+
+void Canvas::notifyObservers()
+{
+    for(int i = 0; i < itsCanvasObservers.size(); ++i)
+    {
+        itsCanvasObservers.at(i)->drawSameShapeType();
+    }
+}
+
 void Canvas::mousePressEvent(QMouseEvent *pe)
 {
     if(pe->buttons() & Qt::LeftButton)
@@ -150,6 +171,10 @@ void Canvas::mousePressEvent(QMouseEvent *pe)
                 && point.y() < sceneRect().bottomRight().y())
         {
             itsIsLeftButtonPressed = true;
+            if(itsIsShapeDrawn)
+            {
+                notifyObservers();
+            }
         }
     }
 }

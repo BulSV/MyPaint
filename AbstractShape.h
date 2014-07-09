@@ -18,7 +18,7 @@ public:
     QBrush brush() const;
     virtual QRectF boundingRect() const = 0;
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) = 0;
-    virtual void draw(qreal x1, qreal y1, qreal x2, qreal y2) = 0;    
+    virtual void draw(qreal x1, qreal y1, qreal x2, qreal y2) = 0;
 private:
     QPen itsPen;
     QBrush itsBrush;

@@ -40,7 +40,7 @@ public:
     QAction *actionAbout_Qt;
     QAction *actionShowDrawingTools;
     QAction *actionHideDrawingTools;
-    QAction *actionClose;
+    QAction *actionCloseTab;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QTabWidget *tabWidget;
@@ -83,8 +83,8 @@ public:
         actionShowDrawingTools->setObjectName(QStringLiteral("actionShowDrawingTools"));
         actionHideDrawingTools = new QAction(MainWindow);
         actionHideDrawingTools->setObjectName(QStringLiteral("actionHideDrawingTools"));
-        actionClose = new QAction(MainWindow);
-        actionClose->setObjectName(QStringLiteral("actionClose"));
+        actionCloseTab = new QAction(MainWindow);
+        actionCloseTab->setObjectName(QStringLiteral("actionCloseTab"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -114,7 +114,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 529, 25));
+        menuBar->setGeometry(QRect(0, 0, 529, 20));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHelp = new QMenu(menuBar);
@@ -138,21 +138,25 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         bDrawLine = new QPushButton(dockWidgetContents_2);
         bDrawLine->setObjectName(QStringLiteral("bDrawLine"));
+        bDrawLine->setCheckable(true);
 
         verticalLayout->addWidget(bDrawLine);
 
         bDrawRectangle = new QPushButton(dockWidgetContents_2);
         bDrawRectangle->setObjectName(QStringLiteral("bDrawRectangle"));
+        bDrawRectangle->setCheckable(true);
 
         verticalLayout->addWidget(bDrawRectangle);
 
         bDrawEllipse = new QPushButton(dockWidgetContents_2);
         bDrawEllipse->setObjectName(QStringLiteral("bDrawEllipse"));
+        bDrawEllipse->setCheckable(true);
 
         verticalLayout->addWidget(bDrawEllipse);
 
         bDrawText = new QPushButton(dockWidgetContents_2);
         bDrawText->setObjectName(QStringLiteral("bDrawText"));
+        bDrawText->setCheckable(true);
 
         verticalLayout->addWidget(bDrawText);
 
@@ -187,7 +191,7 @@ public:
         menuFile->addAction(actionOpen);
         menuFile->addAction(actionSave);
         menuFile->addSeparator();
-        menuFile->addAction(actionClose);
+        menuFile->addAction(actionCloseTab);
         menuFile->addAction(actionExit);
         menuHelp->addAction(actionAbout_Qt);
         menuView->addAction(actionShowDrawingTools);
@@ -203,6 +207,7 @@ public:
         QObject::connect(actionSave, SIGNAL(triggered()), MainWindow, SLOT(save()));
         QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
         QObject::connect(tabWidget, SIGNAL(tabCloseRequested(int)), MainWindow, SLOT(closeTab(int)));
+        QObject::connect(actionCloseTab, SIGNAL(triggered()), MainWindow, SLOT(closeTab()));
 
         tabWidget->setCurrentIndex(0);
 
@@ -224,7 +229,8 @@ public:
         actionAbout_Qt->setText(QApplication::translate("MainWindow", "About Qt", 0));
         actionShowDrawingTools->setText(QApplication::translate("MainWindow", "Show Drawing Tools", 0));
         actionHideDrawingTools->setText(QApplication::translate("MainWindow", "Hide Drawing Tools", 0));
-        actionClose->setText(QApplication::translate("MainWindow", "Close", 0));
+        actionCloseTab->setText(QApplication::translate("MainWindow", "Close Tab", 0));
+        actionCloseTab->setShortcut(QApplication::translate("MainWindow", "Ctrl+W", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainWindow", "New", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "Tab 2", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));

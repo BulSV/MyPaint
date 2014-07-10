@@ -56,7 +56,7 @@
      <x>0</x>
      <y>0</y>
      <width>529</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -67,7 +67,7 @@
     <addaction name="actionOpen"/>
     <addaction name="actionSave"/>
     <addaction name="separator"/>
-    <addaction name="actionClose"/>
+    <addaction name="actionCloseTab"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -117,6 +117,9 @@
        <property name="text">
         <string>Line</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -126,6 +129,9 @@
        </property>
        <property name="text">
         <string>Rectangle</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -137,12 +143,18 @@
        <property name="text">
         <string>Ellipse</string>
        </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="bDrawText">
        <property name="text">
         <string>Text</string>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
@@ -236,9 +248,12 @@
     <string>Hide Drawing Tools</string>
    </property>
   </action>
-  <action name="actionClose">
+  <action name="actionCloseTab">
    <property name="text">
-    <string>Close</string>
+    <string>Close Tab</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
    </property>
   </action>
  </widget>
@@ -389,11 +404,28 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionCloseTab</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>closeTab()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>264</x>
+     <y>180</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>newImage()</slot>
   <slot>open()</slot>
   <slot>save()</slot>
   <slot>closeTab(int)</slot>
+  <slot>closeTab()</slot>
  </slots>
 </ui>

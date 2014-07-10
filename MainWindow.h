@@ -49,20 +49,24 @@ private:
     };
 
     ShapeTypes lastDrawnShapeType;
+    QList<QPushButton*> buttonsCheckStates;
 
     AbstractShape *lastDrawnShape();
+    // toogle checked buttons
+    void checkSwitcher(QPushButton *checkButton);
 private slots:
     void setStartXY_EndXY(int startX, int startY, int endX, int endY);
     void newImage();
-    void on_bDrawLine_clicked();
-    void on_bDrawRectangle_clicked();
-    void on_bDrawEllipse_clicked();
-    void on_bDrawText_clicked();
+    void on_bDrawLine_pressed();
+    void on_bDrawRectangle_pressed();
+    void on_bDrawEllipse_pressed();
+    void on_bDrawText_pressed();
     void on_bPenColor_clicked();
     void on_bPenWidth_clicked();
     void open();
     void save();
     void closeTab(int tabIndex);
+    void closeTab();
 };
 
 #endif // MAINWINDOW_H

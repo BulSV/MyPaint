@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QInputDialog>
+#include <QSignalMapper>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,6 +23,11 @@ MainWindow::MainWindow(QWidget *parent) :
     currentDirSave = "";
 
     lastDrawnShapeType = NoShapeType;
+
+    buttonsCheckStates.append(ui->bDrawLine);
+    buttonsCheckStates.append(ui->bDrawRectangle);
+    buttonsCheckStates.append(ui->bDrawEllipse);
+    buttonsCheckStates.append(ui->bDrawText);
 
     ui->statusBar->addWidget(lStartX);
     ui->statusBar->addWidget(lStartY);
@@ -69,6 +75,18 @@ AbstractShape *MainWindow::lastDrawnShape()
         break;
     default: return 0;
         break;
+    }
+}
+
+void MainWindow::checkSwitcher(QPushButton *checkButton)
+{
+    for(int i = 0; i < buttonsCheckStates.size(); ++i)
+    {
+        if(buttonsCheckStates.indexOf(checkButton) != i
+                && buttonsCheckStates.at(i)->isChecked())
+        {
+            buttonsCheckStates.at(i)->setChecked(false);
+        }
     }
 }
 
@@ -126,8 +144,10 @@ void MainWindow::newImage()
 }
 
 
-void MainWindow::on_bDrawLine_clicked()
+void MainWindow::on_bDrawLine_pressed()
 {
+    checkSwitcher(ui->bDrawLine);
+
     if(ui->tabWidget->currentWidget())
     {
         lastDrawnShapeType = LineType;
@@ -135,8 +155,10 @@ void MainWindow::on_bDrawLine_clicked()
     }
 }
 
-void MainWindow::on_bDrawRectangle_clicked()
+void MainWindow::on_bDrawRectangle_pressed()
 {
+    checkSwitcher(ui->bDrawRectangle);
+
     if(ui->tabWidget->currentWidget())
     {
         lastDrawnShapeType = RectangleType;
@@ -144,8 +166,10 @@ void MainWindow::on_bDrawRectangle_clicked()
     }
 }
 
-void MainWindow::on_bDrawEllipse_clicked()
+void MainWindow::on_bDrawEllipse_pressed()
 {
+    checkSwitcher(ui->bDrawEllipse);
+
     if(ui->tabWidget->currentWidget())
     {
         lastDrawnShapeType = EllipseType;
@@ -153,8 +177,13 @@ void MainWindow::on_bDrawEllipse_clicked()
     }
 }
 
-void MainWindow::on_bDrawText_clicked()
+void MainWindow::on_bDrawText_pressed()
 {
+    // because SimpleTextConfigDialog interrupts pressing
+    ui->bDrawText->setChecked(true);
+
+    checkSwitcher(ui->bDrawText);
+
     if(ui->tabWidget->currentWidget())
     {
         lastDrawnShapeType = SimpleTextType;
@@ -250,4 +279,9 @@ void MainWindow::save()
 void MainWindow::closeTab(int tabIndex)
 {
     ui->tabWidget->removeTab(tabIndex);
+}
+
+void MainWindow::closeTab()
+{
+    closeTab(ui->tabWidget->currentIndex());
 }

@@ -24,6 +24,7 @@ public:
     int endX() const;
     int endY() const;
     void addShape(AbstractShape *shape);
+    void addBackgroundShape(AbstractShape *backgroundShape);
     void setSceneRect(qreal x, qreal y, qreal w, qreal h);
     AbstractShape *currentShape();
     void setColor(QColor color);

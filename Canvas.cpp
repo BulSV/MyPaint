@@ -57,6 +57,11 @@ void Canvas::addShape(AbstractShape *shape)
     itsIsShapeSet = true;
 }
 
+void Canvas::addBackgroundShape(AbstractShape *backgroundShape)
+{
+    itsScene->addItem(backgroundShape);
+}
+
 void Canvas::setSceneRect(qreal x, qreal y, qreal w, qreal h)
 {
     itsScene->setSceneRect(x, y, w, h);

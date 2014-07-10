@@ -42,9 +42,10 @@ private:
     QFrame *frmXYLineSeparator;
     QString currentDirOpen;
     QString currentDirSave;
+
     enum ShapeTypes
     {
-        LineType, RectangleType, EllipseType, SimpleTextType
+        NoShapeType, LineType, RectangleType, EllipseType, SimpleTextType
     };
 
     ShapeTypes lastDrawnShapeType;

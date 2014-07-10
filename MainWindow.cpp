@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) :
     currentDirOpen = "";
     currentDirSave = "";
 
+    lastDrawnShapeType = NoShapeType;
+
     ui->statusBar->addWidget(lStartX);
     ui->statusBar->addWidget(lStartY);
     ui->statusBar->addWidget(frmXYLineSeparator);
@@ -45,7 +47,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::drawSameShapeType()
 {
-    ((Canvas*)ui->tabWidget->currentWidget())->addShape(lastDrawnShape());
+    AbstractShape *lastDrawnShape = this->lastDrawnShape();
+    if(lastDrawnShape)
+    {
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(lastDrawnShape);
+    }
+    lastDrawnShape = 0;
 }
 
 AbstractShape *MainWindow::lastDrawnShape()
@@ -176,7 +183,7 @@ void MainWindow::on_bPenWidth_clicked()
 
 void MainWindow::open()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, "Open Dialog", currentDirOpen, tr("Images (*.bmp *.jpg *.png)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Dialog"), currentDirOpen, tr("Images (*.bmp *.jpg *.png)"));
     QPixmap pixmap(fileName);
     if(!fileName.isEmpty())
     {
@@ -188,6 +195,7 @@ void MainWindow::open()
         if(!ui->tabWidget->currentWidget())
         {
             Canvas *canvas = new Canvas();
+            canvas->registerObserver(this);
             ui->tabWidget->addTab(canvas, list.at(list.size() - 1));
         }
         else
@@ -196,7 +204,7 @@ void MainWindow::open()
         }
         ((Canvas*)ui->tabWidget->currentWidget())->clear();
         ((Canvas*)ui->tabWidget->currentWidget())->setSceneRect(0, 0, pixmap.size().width(), pixmap.size().height());
-        ((Canvas*)ui->tabWidget->currentWidget())->addShape(new Pixmap(pixmap));
+        ((Canvas*)ui->tabWidget->currentWidget())->addBackgroundShape(new Pixmap(pixmap));
     }
 }
 
@@ -216,7 +224,7 @@ void MainWindow::save()
 
     ((Canvas*)ui->tabWidget->currentWidget())->resize(currentRect.width(), currentRect.height());
 
-    QString fileName = QFileDialog::getSaveFileName(this, "Save Dialog", currentDirSave, tr("Images (*.bmp *.jpg *.png)"));
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Save Dialog"), currentDirSave, tr("Images (*.bmp *.jpg *.png)"));
     if(!fileName.isEmpty())
     {
         QStringList list = fileName.split("/");

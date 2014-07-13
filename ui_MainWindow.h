@@ -60,6 +60,8 @@ public:
     QPushButton *bDrawEllipse;
     QPushButton *bDrawText;
     QFrame *line;
+    QPushButton *bRubber;
+    QFrame *line_2;
     QPushButton *bPenColor;
     QPushButton *bPenWidth;
     QSpacerItem *verticalSpacer;
@@ -114,7 +116,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 529, 20));
+        menuBar->setGeometry(QRect(0, 0, 529, 21));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHelp = new QMenu(menuBar);
@@ -166,6 +168,19 @@ public:
         line->setFrameShadow(QFrame::Sunken);
 
         verticalLayout->addWidget(line);
+
+        bRubber = new QPushButton(dockWidgetContents_2);
+        bRubber->setObjectName(QStringLiteral("bRubber"));
+        bRubber->setCheckable(true);
+
+        verticalLayout->addWidget(bRubber);
+
+        line_2 = new QFrame(dockWidgetContents_2);
+        line_2->setObjectName(QStringLiteral("line_2"));
+        line_2->setFrameShape(QFrame::HLine);
+        line_2->setFrameShadow(QFrame::Sunken);
+
+        verticalLayout->addWidget(line_2);
 
         bPenColor = new QPushButton(dockWidgetContents_2);
         bPenColor->setObjectName(QStringLiteral("bPenColor"));
@@ -253,6 +268,7 @@ public:
 #endif // QT_NO_TOOLTIP
         bDrawEllipse->setText(QApplication::translate("MainWindow", "Ellipse", 0));
         bDrawText->setText(QApplication::translate("MainWindow", "Text", 0));
+        bRubber->setText(QApplication::translate("MainWindow", "Rubber", 0));
 #ifndef QT_NO_TOOLTIP
         bPenColor->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Set Pen Color</p></body></html>", 0));
 #endif // QT_NO_TOOLTIP

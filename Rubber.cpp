@@ -1,29 +1,44 @@
 #include "Rubber.h"
 
-Rubber::Rubber(const QPen &pen, const QBrush &brush, AbstractShape *parent) :
+#include <QDebug>
+
+Rubber::Rubber(QGraphicsScene *parentScene,
+               const QPen &pen,
+               const QBrush &brush,
+               AbstractShape *brushShape,
+               AbstractShape *parent) :
     AbstractShape(pen, brush, parent)
-  , itsRect(new QGraphicsRectItem())
+  , itsBrushShape(brushShape)
+  , itsScene(parentScene)
 {
+    itsBrushShape->setPen(QPen(Qt::NoPen));
+    itsBrushShape->setBrush(QBrush(QColor(Qt::white)));
 }
 
 Rubber::~Rubber()
 {
-    delete itsRect;
-    itsRect = 0;
+    delete itsBrushShape;
+    itsBrushShape = 0;
 }
 
 QRectF Rubber::boundingRect() const
 {
-    return itsRect->boundingRect();
+    return itsBrushShape->boundingRect();
 }
 
 void Rubber::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    itsRect->paint(painter, option, widget);
+    itsBrushShape->paint(painter, option, widget);
 }
 
 void Rubber::draw(qreal x1, qreal y1, qreal x2, qreal y2)
 {
-    itsRect->setRect(-x2/2, -y2/2, x2/2, y2/2);
-    itsRect->setBrush(QBrush(QColor(Qt::white)));
+    itsBrushShape->draw(x2 - pen().width()/2, y2 - pen().width()/2,
+                        x2 + pen().width()/2, y2 + pen().width()/2);
+    itsScene->addItem(new Rubber(itsScene));
+}
+
+void Rubber::setBrushShape(AbstractShape *brushShape)
+{
+    itsBrushShape = brushShape;
 }

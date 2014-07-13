@@ -19,6 +19,7 @@
 #include "SimpleTextDialog.h"
 #include "Pixmap.h"
 #include "CanvasObserver.h"
+#include "Rubber.h"
 
 namespace Ui {
 class MainWindow;
@@ -45,7 +46,7 @@ private:
 
     enum ShapeTypes
     {
-        NoShapeType, LineType, RectangleType, EllipseType, SimpleTextType
+        NoShapeType, LineType, RectangleType, EllipseType, SimpleTextType, RubberType
     };
 
     ShapeTypes lastDrawnShapeType;
@@ -67,6 +68,7 @@ private slots:
     void save();
     void closeTab(int tabIndex);
     void closeTab();
+    void on_bRubber_pressed();    
 };
 
 #endif // MAINWINDOW_H

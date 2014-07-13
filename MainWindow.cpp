@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent) :
     buttonsCheckStates.append(ui->bDrawRectangle);
     buttonsCheckStates.append(ui->bDrawEllipse);
     buttonsCheckStates.append(ui->bDrawText);
+    buttonsCheckStates.append(ui->bRubber);
 
     ui->statusBar->addWidget(lStartX);
     ui->statusBar->addWidget(lStartY);
@@ -72,6 +73,8 @@ AbstractShape *MainWindow::lastDrawnShape()
     case EllipseType: return new Ellipse();
         break;
     case SimpleTextType: return new SimpleTextDialog();
+        break;
+    case RubberType: return new Rubber(((Canvas*)ui->tabWidget->currentWidget())->scene());
         break;
     default: return 0;
         break;
@@ -284,4 +287,15 @@ void MainWindow::closeTab(int tabIndex)
 void MainWindow::closeTab()
 {
     closeTab(ui->tabWidget->currentIndex());
+}
+
+void MainWindow::on_bRubber_pressed()
+{
+    checkSwitcher(ui->bRubber);
+
+    if(ui->tabWidget->currentWidget())
+    {
+        lastDrawnShapeType = RubberType;
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(lastDrawnShape());
+    }
 }

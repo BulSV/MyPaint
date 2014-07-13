@@ -134,8 +134,10 @@ void Canvas::clear()
 
 QRectF Canvas::drawRect() const
 {
-    QPoint p1 = mapFromScene(QPointF(itsScene->sceneRect().topLeft().x(), itsScene->sceneRect().topLeft().y()));
-    QPoint p2 = mapFromScene(QPointF(itsScene->sceneRect().bottomRight().x(), itsScene->sceneRect().bottomRight().y()));
+    QPoint p1 = mapFromScene(QPointF(itsScene->sceneRect().topLeft().x(),
+                                     itsScene->sceneRect().topLeft().y()));
+    QPoint p2 = mapFromScene(QPointF(itsScene->sceneRect().bottomRight().x(),
+                                     itsScene->sceneRect().bottomRight().y()));
 
     QRectF rect(p1, p2);
 
@@ -150,8 +152,7 @@ void Canvas::registerObserver(CanvasObserver *canvasObserver)
 void Canvas::removeObserver(CanvasObserver *canvasObserver)
 {
     CanvasObserver *tempCanvasObserver = canvasObserver;
-    itsCanvasObservers.removeOne(canvasObserver);
-    delete tempCanvasObserver;
+    itsCanvasObservers.removeOne(canvasObserver);    
     tempCanvasObserver = 0;
 }
 

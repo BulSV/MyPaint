@@ -296,6 +296,9 @@ void MainWindow::on_bRubber_pressed()
     if(ui->tabWidget->currentWidget())
     {
         lastDrawnShapeType = RubberType;
-        ((Canvas*)ui->tabWidget->currentWidget())->addShape(lastDrawnShape());
+        Rubber *r = (Rubber*)lastDrawnShape();
+        r->setBrushShape(Rubber::EllipseShape);
+        ((Canvas*)ui->tabWidget->currentWidget())->addShape(/*lastDrawnShape()*/r);
+        r = 0;
     }
 }

@@ -2,15 +2,30 @@
 
 #include <QDebug>
 
+void Rubber::shapeChocer(BrushShapes brushShape)
+{
+    switch(brushShape)
+    {
+    case RectangleShape: itsBrushShape = new Rectangle();
+        break;
+    case EllipseShape: itsBrushShape = new Ellipse();
+        break;
+    default: itsBrushShape = new Rectangle();
+        break;
+    }
+    itsBrushShapeType = brushShape;
+}
+
 Rubber::Rubber(QGraphicsScene *parentScene,
+               BrushShapes brushShape,
                const QPen &pen,
                const QBrush &brush,
-               AbstractShape *brushShape,
                AbstractShape *parent) :
     AbstractShape(pen, brush, parent)
-  , itsBrushShape(brushShape)
+//  , itsBrushShape(brushShape)
   , itsScene(parentScene)
 {
+    shapeChocer(brushShape);
     itsBrushShape->setPen(QPen(Qt::NoPen));
     itsBrushShape->setBrush(QBrush(QColor(Qt::white)));
 }
@@ -35,10 +50,11 @@ void Rubber::draw(qreal x1, qreal y1, qreal x2, qreal y2)
 {
     itsBrushShape->draw(x2 - pen().width()/2, y2 - pen().width()/2,
                         x2 + pen().width()/2, y2 + pen().width()/2);
-    itsScene->addItem(new Rubber(itsScene));
+    itsScene->addItem(new Rubber(itsScene, itsBrushShapeType));
 }
 
-void Rubber::setBrushShape(AbstractShape *brushShape)
+void Rubber::setBrushShape(BrushShapes brushShape)
 {
-    itsBrushShape = brushShape;
+    delete itsBrushShape;
+    shapeChocer(brushShape);
 }
